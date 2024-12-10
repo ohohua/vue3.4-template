@@ -1,0 +1,71 @@
+.el-dialog {
+  padding: 0;
+  .el-dialog__header {
+    height: 40px;
+    background-color: #2dabff;
+  }
+  .el-dialog__footer {
+    padding: 0 1rem;
+    height: 40px;
+    background-color: #dfe1e4;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .el-dialog__body {
+    max-height: 700px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width: 4px;
+      /*高宽分别对应横竖滚动条的尺寸*/
+      height: 4px;
+      border-radius: calc(4px / 2);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      /*滚动条里面小方块*/
+      border-radius: calc(4px / 2);
+      -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+      background: rgba(#dfe1e4, 0.8);
+    }
+
+    &::-webkit-scrollbar-track {
+      /*滚动条里面轨道*/
+      -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+   
+    .footer {
+      position: sticky;
+      bottom: 0;
+      z-index: 999;
+    }
+  }
+}
+
+.el-message-box {
+  width: 478px;
+  height: 244px;
+  .el-message-box__container {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 100px;
+  }
+  .el-message-box__btns {
+    margin-top: 20px;
+    .el-button {
+      background-color: #dfdfdf;
+      width: 98px;
+      color: #fff;
+      border: 1px solid #dfdfdf;
+    }
+    .el-button--primary {
+      background-color: #16a2df;
+      border: 1px solid #16a2df;
+      color: #fff;
+    }
+  }
+  
+}
