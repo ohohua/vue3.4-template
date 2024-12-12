@@ -1,15 +1,15 @@
-@import "@/style/reset";
+@use "@/style/reset";
 /* iconfont图标样式 */
-@import "@/style/iconfont.css";
+@use "@/style/iconfont.css";
 /* 进度条样式 */
-@import "./nprogress.scss";
+@use "./nprogress.scss";
 // 导入基础样式
-@import "tailwindcss/base";
+@use "tailwindcss/base";
 // 导入组件样式
-@import "tailwindcss/components";
+@use "tailwindcss/components";
 // 导入实用工具样式
-@import "tailwindcss/utilities";
+@use "tailwindcss/utilities";
 
-@import "element-plus/dist/index.css";
+@use "element-plus/dist/index.css";
 
-@import "@/style/ele";
+@use "@/style/ele";

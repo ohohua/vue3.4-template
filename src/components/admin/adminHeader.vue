@@ -32,7 +32,7 @@ onMounted(() => {
       <div class="avatar mr-2.5">
         <!-- <el-avatar :src="userInfo.avatar" /> -->
       </div>
-      <h2 class="text-2xl text-white">车载数据处理存储平台数据采集系统</h2>
+      <h2 class="text-2xl text-white">vue3.4-template</h2>
       <!-- 头部面包屑 -->
       <!-- <el-breadcrumb class="ml-6">
         <el-breadcrumb-item v-for="item in breadcrumbRoutes" :key="item.name" :to="{ name: item?.name }" class="text-base">

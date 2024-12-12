@@ -16,8 +16,8 @@ const { searchForm, searchOptions, handleSearch } = search(methods.setSearchPara
 
 const { handleAdd, handleEdit } = operate(() => methods.getList());
 
-const { openDialog: handleDetail } = useDialog(DictDetail, { dialogProps: { title: "查看字典" } });
-const { openDialog: handleDictConfig } = useDialog(DictConfig, { dialogProps: { title: "字典配置" } });
+const [handleDetail] = useDialog(DictDetail, { dialogProps: { title: "查看字典" } });
+const [handleDictConfig] = useDialog(DictConfig, { dialogProps: { title: "字典配置" } });
 
 const handleDelete = async (row: any, multiple: boolean) => {
   const selected = await methods.getSelections();

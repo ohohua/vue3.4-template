@@ -10,9 +10,9 @@ const roleDetail = defineAsyncComponent(() => import("./components/roleDetail.vu
 const roleUserTable = defineAsyncComponent(() => import("./components/roleUserTable.vue"));
 const roleAuthorized = defineAsyncComponent(() => import("./components/roleAuthorized.vue"));
 
-const { openDialog: handleDetail } = useDialog(roleDetail, { dialogProps: { title: "详情" } });
-const { openDialog: handleImpower } = useDialog(roleAuthorized, { dialogProps: { title: "授权角色" } });
-const { openDialog: handleUser } = useDialog(roleUserTable, { dialogProps: { title: "角色用户" } });
+const [handleDetail] = useDialog(roleDetail, { dialogProps: { title: "详情" } });
+const [handleImpower] = useDialog(roleAuthorized, { dialogProps: { title: "授权角色" } });
+const [handleUser] = useDialog(roleUserTable, { dialogProps: { title: "角色用户" } });
 const { register, tableObject, methods } = useTable({ getListApi, delListApi, props: tableProps });
 
 const { searchForm, searchOptions, handleSearch } = search(methods.setSearchParams);

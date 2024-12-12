@@ -23,11 +23,6 @@ import UploadFile from "@/components/upload/uploadFile.vue";
 import UploadImg from "@/components/upload/uploadImg.vue";
 import Text from "@/components/text/text.vue";
 import DoubleSelect from "@/components/select/double-select.vue";
-import Card from "@/views/collection/components/card.vue";
-import requestHeadTable from "@/views/interface/components/requestHeadTable.vue";
-import selectMenuType from "@/views/system/menu/components/selectMenuType.vue";
-import reasonKeyword from "@/views/breakdown/components/reasonKeyword.vue";
-import workTime from "@/views/breakdown/components/workTime.vue";
 
 import type { ComponentName } from "@/types/components";
 import type { Recordable } from "@/types/form";
@@ -57,11 +52,6 @@ const componentMap: Recordable<Component, ComponentName> = {
   UploadFile: UploadFile,
   UploadImg: UploadImg,
   DoubleSelect: DoubleSelect,
-  Card: Card,
-  RequestHeadTable: requestHeadTable,
-  SelectMenuType: selectMenuType,
-  ReasonKeyword: reasonKeyword,
-  WorkTime: workTime,
 };
 
 export { componentMap };

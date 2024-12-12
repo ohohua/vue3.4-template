@@ -18,7 +18,7 @@ const searchForm = ref({ username: "", realName: "" });
 const handleSearch = (type: "query" | "reset") => {
   methods.setSearchParams(type === "query" ? searchForm.value : {});
 };
-const { openDialog } = useDialog(userSelectTable, {
+const [openDialog] = useDialog(userSelectTable, {
   dialogProps: { title: "用户选择列表" },
   contentProps: {
     roleId: props.id,

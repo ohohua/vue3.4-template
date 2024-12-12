@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
 /* 全局后置守卫 */
 router.afterEach((to) => {
   close(); //关闭进度条
-  document.title = ("车载数据处理存储平台数据采集系统-" + to.meta.title) as string;
+  document.title = ("vue3.4-template-" + to.meta.title) as string;
 });
 
 export default router;

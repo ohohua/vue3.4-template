@@ -41,9 +41,9 @@ const onSubmitWithInfo = async () => {
 
   try {
     loading.value = true;
-    const { data } = await login(loginUsernameForm);
-    const { token, username, sysMenus } = data || {};
-    // const token = "123";
+    // const { data } = await login(loginUsernameForm);
+    // const { token, username, sysMenus } = data || {};
+    const token = "123";
     authStore.setData({ token, menu: [] });
     authStore.setCheckTokenData({ username });
     authStore.addAllRouter();
@@ -82,9 +82,10 @@ const onSubmitWithName = async () => {
 
   try {
     loading.value = true;
-    const { data } = await login(loginUsernameForm);
-    const { token, sysMenus, username } = data || {};
-    // const token = "123";
+    // const { data } = await login(loginUsernameForm);
+    // const { token, sysMenus, username } = data || {};
+    const token = "123";
+    const username = "admin";
     authStore.setData({ token, menu: [] });
     authStore.setCheckTokenData({ username });
     authStore.addAllRouter();
@@ -109,7 +110,7 @@ const canSubmitWithName = computed(() => {
 
 <template>
   <div class="login-page">
-    <h2 class="mb-20 text-5xl font-bold text-center">车载数据处理存储平台数据采集系统</h2>
+    <h2 class="mb-20 text-5xl font-bold text-center">vue3.4-template</h2>
     <div class="flex overflow-hidden login-container">
       <div class="p-4 form-container w-[400px] m-auto">
         <el-tabs v-model="type" stretch>

@@ -2,10 +2,7 @@ import { ElDialog } from "element-plus";
 import { upperFirst } from "lodash-es";
 import { h, render, type ComponentInternalInstance } from "vue";
 import type { JSX } from "vue/jsx-runtime";
-// import square from "@/assets/images/square.png";
 import { CloseBold } from "@element-plus/icons-vue";
-// import { createApp } from "vue";
-// import Dialog from "../Dialog.vue";
 
 type Content = Parameters<typeof h>[0] | string | JSX.Element;
 // 使用 InstanceType 获取 ElDialog 组件实例的类型
@@ -52,15 +49,6 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
         options?.dialogProps?.title || "title",
       ),
       [
-        // h("img", {
-        //   class: "mr-2 cursor-pointer",
-        //   src: square,
-        //   onClick: (event) => {
-        //     event.stopPropagation();
-        //     isFull.value = !isFull.value;
-        //     openDialog();
-        //   },
-        // }),
         h(
           "div",
           {
@@ -71,7 +59,6 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
             },
           },
           h(CloseBold, { style: { width: "1em", height: "1em", color: "#fff" } }),
-          // h("img", { src: clear }),
         ),
       ],
     ]);
@@ -121,7 +108,7 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
         closeOnClickModal: false,
         width: 800,
         fullscreen: isFull.value,
-        beforeClose: async (done) => {
+        beforeClose: async (done: () => void) => {
           const result = await onBeforeClose?.();
           if (result === false) {
             return;
@@ -129,6 +116,7 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
           done();
         },
         onClosed: () => {
+          // @ts-ignore
           dialogProps?.onClosed?.();
           closeAfter();
           // 关闭后回收当前变量
@@ -157,15 +145,13 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
     dialogInstance = vNode.component;
 
     document.body.appendChild(fragment);
-    // const app = createApp(vNode);
-    // app.mount("#custom-dialog");
   }
 
   onUnmounted(() => {
     closeDialog();
   });
 
-  return { openDialog, closeDialog };
+  return [openDialog, closeDialog];
 }
 
 export default useDialog;

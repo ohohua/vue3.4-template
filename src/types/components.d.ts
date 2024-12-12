@@ -23,12 +23,7 @@ export type ComponentName =
   | "UploadFile"
   | "TreeSelect"
   | "DoubleSelect"
-  | "Card"
   | "UploadImg"
-  | "RequestHeadTable"
-  | "SelectMenuType"
-  | "ReasonKeyword"
-  | "WorkTime"
   | "Text";
 
 export type FormValueType = string | number | string[] | number[] | boolean | undefined | null;

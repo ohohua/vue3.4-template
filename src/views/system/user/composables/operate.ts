@@ -3,15 +3,15 @@ const userForm = defineAsyncComponent(() => import("../components/userForm.vue")
 const importForm = defineAsyncComponent(() => import("@/components/import/importForm.vue"));
 
 export default function operate(fn: () => void) {
-  const { openDialog: handleAdd } = useDialog(userForm, {
+  const [handleAdd] = useDialog(userForm, {
     dialogProps: { title: "新增人员" },
     contentProps: { beforeClose: () => fn() },
   });
-  const { openDialog: handleEdit } = useDialog(userForm, {
+  const [handleEdit] = useDialog(userForm, {
     dialogProps: { title: "编辑人员" },
     contentProps: { beforeClose: () => fn() },
   });
-  const { openDialog: handleImport } = useDialog(importForm, {
+  const [handleImport] = useDialog(importForm, {
     dialogProps: { title: "导入人员" },
     contentProps: { beforeClose: () => fn() },
   });

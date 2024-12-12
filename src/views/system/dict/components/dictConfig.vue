@@ -42,12 +42,12 @@ const searchOptions = ref([
 const handleSearch = (type: "query" | "reset") => {
   methods.setSearchParams(type === "query" ? searchForm.value : {});
 };
-const { openDialog } = useDialog(dictConfigForm, {
+const [openDialog] = useDialog(dictConfigForm, {
   dialogProps: { title: "新增字典值" },
   contentProps: { sysDictTypeId: props.id, beforeClose: () => methods.getList() },
 });
 
-const { openDialog: openEditDialog } = useDialog(dictConfigForm, {
+const [openEditDialog] = useDialog(dictConfigForm, {
   dialogProps: { title: "编辑字典值" },
   contentProps: { sysDictTypeId: props.id },
 });

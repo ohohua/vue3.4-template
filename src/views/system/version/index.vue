@@ -10,7 +10,7 @@ import type { Version } from "@/api/system/version/version";
 import download from "@/utils/download";
 const versionDetail = defineAsyncComponent(() => import("./components/versionDetail.vue"));
 
-const { openDialog: handleDetail } = useDialog(versionDetail, { dialogProps: { title: "软件版本详情" } });
+const [handleDetail] = useDialog(versionDetail, { dialogProps: { title: "软件版本详情" } });
 const { register, tableObject, methods } = useTable({ getListApi, delListApi, props });
 
 const { searchForm, searchOptions, handleSearch } = search(methods.setSearchParams);

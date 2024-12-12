@@ -14,7 +14,7 @@ const { searchForm, searchOptions, handleSearch } = search(methods.setSearchPara
 
 const { handleEdit, handleExport } = operate(() => methods.getList());
 
-const { openDialog: handleDetail } = useDialog(logDetail, { dialogProps: { title: "日志详情" } });
+const [handleDetail] = useDialog(logDetail, { dialogProps: { title: "日志详情" } });
 </script>
 
 <template>

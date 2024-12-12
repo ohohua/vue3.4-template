@@ -9,7 +9,7 @@ import useDialog from "@/hooks/useDialog";
 const menuSubForm = defineAsyncComponent(() => import("./components/menuSubForm.vue"));
 
 const { register, tableObject, methods, elTableRef } = useTable({ getListApi, delListApi, props });
-const { openDialog: handleAddSub } = useDialog(menuSubForm, {
+const [handleAddSub] = useDialog(menuSubForm, {
   dialogProps: { title: "添加下级" },
   contentProps: { beforeClose: () => methods.getList() },
 });

@@ -10,8 +10,8 @@ import useDialog from "@/hooks/useDialog";
 const passwordForm = defineAsyncComponent(() => import("./components/passwordForm.vue"));
 const userDetail = defineAsyncComponent(() => import("./components/userDetail.vue"));
 
-const { openDialog: handleDetail } = useDialog(userDetail, { dialogProps: { title: "用户详情" } });
-const { openDialog: handleUpdatePassword } = useDialog(passwordForm, { dialogProps: { title: "修改密码" } });
+const [handleDetail] = useDialog(userDetail, { dialogProps: { title: "用户详情" } });
+const [handleUpdatePassword] = useDialog(passwordForm, { dialogProps: { title: "修改密码" } });
 const { register, tableObject, methods } = useTable({ getListApi, delListApi, props });
 
 const { searchForm, searchOptions, handleSearch } = search(methods.setSearchParams);

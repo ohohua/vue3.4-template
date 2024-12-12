@@ -22,6 +22,7 @@
     "@wangeditor/editor": "^5.1.23",
     "axios": "^1.7.2",
     "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.13",
     "echarts": "^5.5.0",
     "element-plus": "^2.7.3",
     "jsqr": "^1.4.0",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.12",
     "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.0.4",
