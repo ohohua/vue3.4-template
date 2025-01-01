@@ -9,7 +9,7 @@ import http from '@/utils/http'
 const editConfig = async (data: Config.EditParamsParams) => http.post<Record<string, unknown>>('/configManagement/update/configManagement', data)
 /**
  * 查询参数
- * @returns Config
+ * @returns
  */
 const getConfig = async () => http.get<Record<string, any>>('/configManagement/get/configManagement')
 
