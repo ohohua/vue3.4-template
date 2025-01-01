@@ -138,6 +138,9 @@ importers:
       sass:
         specifier: ^1.77.2
         version: 1.82.0
+      simple-git-hooks:
+        specifier: ^2.11.1
+        version: 2.11.1
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.16
@@ -3028,6 +3031,10 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
+  simple-git-hooks@2.11.1:
+    resolution: {integrity: sha512-tgqwPUMDcNDhuf1Xf6KTUsyeqGdgKMhzaH4PAZZuzguOgTl5uuyeYe/8mWgAr6IBxB5V06uqEf6Dy37gIWDtDg==}
+    hasBin: true
+
   sirv@3.0.0:
     resolution: {integrity: sha512-BPwJGUeDaDCHihkORDchNyyTvWFhcusy1XMmhEVTQTwGeybFbp8YEmB+njbPnth1FibULBSBVwCQni25XlCUDg==}
     engines: {node: '>=18'}
@@ -4837,9 +4844,9 @@ snapshots:
     dependencies:
       run-applescript: 7.0.0
 
-  bundle-require@5.1.0(esbuild@0.21.5):
+  bundle-require@5.1.0(esbuild@0.23.1):
     dependencies:
-      esbuild: 0.21.5
+      esbuild: 0.23.1
       load-tsconfig: 0.2.5
     optional: true
 
@@ -5625,9 +5632,9 @@ snapshots:
 
   importx@0.5.1:
     dependencies:
-      bundle-require: 5.1.0(esbuild@0.21.5)
+      bundle-require: 5.1.0(esbuild@0.23.1)
       debug: 4.4.0
-      esbuild: 0.21.5
+      esbuild: 0.23.1
       jiti: 2.4.2
       pathe: 1.1.2
       tsx: 4.19.2
@@ -6594,6 +6601,8 @@ snapshots:
   shell-quote@1.8.2: {}
 
   signal-exit@4.1.0: {}
+
+  simple-git-hooks@2.11.1: {}
 
   sirv@3.0.0:
     dependencies:
