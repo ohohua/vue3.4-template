@@ -6,6 +6,7 @@ import http from '@/utils/http'
  * @param data
  * @returns Promise
  */
+
 const editConfig = async (data: Config.EditParamsParams) => http.post<Record<unknown, unknown>>('/configManagement/update/configManagement', data)
 /**
  * 查询参数
