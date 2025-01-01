@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 采集任务列表
  * @param data
- * @returns
+ * @returns list
  */
 const getTaskList = async (data: ListDto) => http.get<Task.TaskListVo>('/sysUser/getList', data)
 

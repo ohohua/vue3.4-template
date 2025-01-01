@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 采集任务模板列表
  * @param data
- * @returns
+ * @returns list
  */
 const getTemplateList = async (data: ListDto) => http.get<Template.TaskListVo>('/sysUser/getList', data)
 

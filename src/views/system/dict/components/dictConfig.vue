@@ -17,7 +17,10 @@ const columns = [
   {
     label: '状态',
     field: 'status',
-    formatter: ({ status }: { status: number | undefined }) => (status === 1 ? h('span', { class: 'text-[#06bb9a]' }, '启用') : h('span', { class: 'text-[#FFB402]' }, '停用')),
+    formatter: ({ status }: { status: number | undefined }) =>
+      status === 1
+        ? h('span', { class: 'text-[#06bb9a]' }, '启用')
+        : h('span', { class: 'text-[#FFB402]' }, '停用'),
   },
   { label: '操作', field: 'operation', fixed: 'right' },
 ]
@@ -31,6 +34,10 @@ const tableProps: TableProps = reactive({
   selection: false,
   pagination,
 })
+const { register, tableObject, methods } = useTable(
+  { getListApi: getDictItemList, delListApi: deleteDictItem, props: tableProps },
+  { dictTypeCode: props.dictTypeCode },
+)
 const searchForm = ref({
   dictLabel: undefined,
   status: undefined,
@@ -58,10 +65,11 @@ function handleAdd(row: Dict.EditDictItemParams) {
 }
 async function handleDelete(row: any, multiple: boolean) {
   const selected = await methods.getSelections()
-  const msg = multiple ? `确认删除${selected.length}条字典配置信息吗？` : '确认要将此字典配置信息删除吗？'
+  const msg = multiple
+    ? `确认删除${selected.length}条字典配置信息吗？`
+    : '确认要将此字典配置信息删除吗？'
   methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, msg)
 }
-const { register, tableObject, methods } = useTable({ getListApi: getDictItemList, delListApi: deleteDictItem, props: tableProps }, { dictTypeCode: props.dictTypeCode })
 </script>
 
 <template>
@@ -78,12 +86,31 @@ const { register, tableObject, methods } = useTable({ getListApi: getDictItemLis
         新增
       </Button>
     </el-space>
-    <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" :selection="false" :height="300" @register="register">
+    <Table
+      v-model:current-page="tableObject.currentPage"
+      v-model:page-size="tableObject.pageSize"
+      :selection="false"
+      :height="300"
+      @register="register"
+    >
       <template #operation="{ row }">
-        <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleAdd(row)">
+        <ElButton
+          v-has="'user-list/btn-edit'"
+          link
+          type="primary"
+          size="small"
+          @click="handleAdd(row)"
+        >
           编辑
         </ElButton>
-        <ElButton v-has="'user-list/btn-delete'" link type="primary" size="small" style="color: #ff934b" @click="handleDelete(row, false)">
+        <ElButton
+          v-has="'user-list/btn-delete'"
+          link
+          type="primary"
+          size="small"
+          style="color: #ff934b"
+          @click="handleDelete(row, false)"
+        >
           删除
         </ElButton>
       </template>

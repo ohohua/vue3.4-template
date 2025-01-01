@@ -1,4 +1,6 @@
-export const baseRouter = [
+import type { RouteRecordRaw } from 'vue-router'
+
+export const baseRouter: RouteRecordRaw[] = [
   {
     path: '/system',
     name: 'system',

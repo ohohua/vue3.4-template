@@ -3,8 +3,8 @@ import http from '@/utils/http'
 
 /**
  * 文件上传
- * @param data
- * @returns
+ * @param formData
+ * @returns any
  */
 const fileUpload = async (formData: FormData) => http.upload<any>('/fileManager/upload', formData)
 

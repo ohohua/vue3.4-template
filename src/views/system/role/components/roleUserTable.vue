@@ -14,6 +14,8 @@ const columns = [
   { label: '操作', field: 'operation', fixed: 'right' },
 ]
 const tableProps = reactive<TableProps>({ columns, selection: false, pagination: {} })
+const { register, tableObject, methods } = useTable({ getListApi, props: tableProps }, { type: 1 })
+
 const searchForm = ref({ username: '', realName: '' })
 function handleSearch(type: 'query' | 'reset') {
   methods.setSearchParams(type === 'query' ? searchForm.value : {})
@@ -25,8 +27,6 @@ const [openDialog] = useDialog(userSelectTable, {
     beforeClose: () => methods.getList(),
   },
 })
-
-const { register, tableObject, methods } = useTable({ getListApi, props: tableProps }, { type: 1 })
 
 async function handleCancel(row: any) {
   const res = await removeRoleUser({ userIds: [row.id], roleId: props.id })
@@ -50,9 +50,21 @@ async function handleCancel(row: any) {
         关联用户
       </Button>
     </el-space>
-    <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" :selection="false" :height="300" @register="register">
+    <Table
+      v-model:current-page="tableObject.currentPage"
+      v-model:page-size="tableObject.pageSize"
+      :selection="false"
+      :height="300"
+      @register="register"
+    >
       <template #operation="{ row }">
-        <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleCancel(row)">
+        <ElButton
+          v-has="'user-list/btn-edit'"
+          link
+          type="primary"
+          size="small"
+          @click="handleCancel(row)"
+        >
           取消关联
         </ElButton>
       </template>

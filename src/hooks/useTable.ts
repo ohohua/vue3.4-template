@@ -1,4 +1,4 @@
-import type { Table, type TableExpose } from '@/components/table'
+import type { Table, TableExpose } from '@/components/table'
 import type { TableProps } from '@/components/table/src/types'
 import type { ComponentRef, Nullable, Recordable } from '@/types/form'
 import type { TableSetPropsType } from '@/types/table'
@@ -35,12 +35,7 @@ interface TableObject<T = any> {
   loading: boolean
   currentRow: Nullable<T>
 }
-/**
- *
- * @param config 表格配置
- * @param params 请求api额外参数
- * @returns
- */
+
 export default function useTable<T = any>(config?: UseTableConfig<T>, params?: Record<string, unknown>) {
   const tableObject = reactive<TableObject<T>>({
     // 页数

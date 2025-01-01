@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 登录
  * @param data
- * @returns
+ * @returns userInfo
  */
 const login = async (data: Login.UserInfoDto) => http.post<Login.UserInfoVo>('/sysUser/login', data)
 

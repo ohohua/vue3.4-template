@@ -6,12 +6,12 @@ import { getAssetsFile } from '@/utils'
 import { useRoute, useRouter } from 'vue-router'
 import '@/types/global.d.ts'
 
-const authStore = useAuthStore()
+const _authStore = useAuthStore()
 const collapseStore = useCollapseStore()
 const router = useRouter()
 const route = useRoute()
 
-const baseRouteFilter = computed(() => baseRouter.filter(item => !item.meta.hidden))
+const baseRouteFilter = computed(() => baseRouter.filter(item => !item.meta?.hidden))
 const active = ref(route.name as string)
 
 /* 路由跳转函数 */

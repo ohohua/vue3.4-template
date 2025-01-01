@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 采集任务列表
  * @param data
- * @returns
+ * @returns list
  */
 const getCollectionCustomList = async (data: ListDto) => http.get<CollectionCustom.ListVo>('/sysUser/getList', data)
 

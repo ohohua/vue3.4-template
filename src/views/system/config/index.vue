@@ -25,16 +25,13 @@ const rules = reactive<FormRules<Config.EditParamsParams>>({
 async function submitForm(formEl: FormInstance | undefined) {
   if (!formEl)
     return
-  await formEl.validate(async (valid, fields) => {
+  await formEl.validate(async (valid, _fields) => {
     if (valid) {
       const data: any = cloneDeep(ruleForm)
       data.loginType = data.loginType?.join(',')
       data.defaultLoginType = Number(data.loginType)
       const res = await editConfig(data)
       ElMessage.success(res.message)
-    }
-    else {
-      console.log('error submit!', fields)
     }
   })
 }

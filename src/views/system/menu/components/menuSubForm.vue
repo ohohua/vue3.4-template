@@ -10,7 +10,6 @@ import { menuTypeMap } from '../composables/table'
 
 const props = defineProps<{ id: string, beforeClose: () => void }>()
 const emits = defineEmits(['close'])
-console.log(props)
 
 const { rules } = useValidator()
 const formProps = reactive<FormProps>({

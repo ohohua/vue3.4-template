@@ -13,8 +13,7 @@ async function getTreeList() {
   treeList.value = data
 }
 async function handleConfirm() {
-  const res = await editMenuToRole({ roleId: props.roleId, menuIdList: menuIdList.value })
-  console.log(res)
+  const _res = await editMenuToRole({ roleId: props.roleId, menuIdList: menuIdList.value })
   emits('close')
 }
 onMounted(() => getTreeList())
@@ -22,7 +21,7 @@ onMounted(() => getTreeList())
 
 <template>
   <div>
-    <el-tree ref="authTree" class="py-4" :data="treeList" :props="{ children: 'children', label: 'menuName' }" node-key="menuId" show-checkbox />
+    <el-tree class="py-4" :data="treeList" :props="{ children: 'children', label: 'menuName' }" node-key="menuId" show-checkbox />
     <Footer cancel confirm @cancel="emits('close')" @confirm="handleConfirm" />
   </div>
 </template>

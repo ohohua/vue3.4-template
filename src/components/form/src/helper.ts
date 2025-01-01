@@ -5,7 +5,6 @@ import type { PlaceholderMoel } from './types'
 import { getSlot } from '@/utils/tsxHelper'
 
 /**
- *
  * @param schema 对应组件数据
  * @returns 返回提示信息对象
  * @description 用于自动设置placeholder
@@ -104,7 +103,7 @@ export function setItemComponentSlots(slots: Slots, slotsProps: Recordable = {},
  */
 export function initModel(schema: FormSchema[], formModel: Recordable) {
   const model: Recordable = { ...formModel }
-  schema.map((v) => {
+  schema.forEach((v) => {
     // 如果是hidden，就删除对应的值
     if (v.hidden) {
       delete model[v.field]

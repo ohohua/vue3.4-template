@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 文件管理列表
  * @param data
- * @returns
+ * @returns list
  */
 const getDocList = async (data: ListDto) => http.get<Doc.ListVo>('/sysUser/getList', data)
 

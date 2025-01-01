@@ -62,7 +62,7 @@ export function isString(val: unknown): val is string {
   return is(val, 'String')
 }
 
-export function isFunction(val: unknown): val is Function {
+export function isFunction(val: unknown) {
   return typeof val === 'function'
 }
 
@@ -94,11 +94,6 @@ export const isServer = typeof window === 'undefined'
 
 export const isClient = !isServer
 
-export function isUrl(path: string): boolean {
-  const reg = /(((^https?:(?:\/\/)?)(?:[-:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-]*)?\??[-+=&%@.\w]*(?:#\w*)?)?)$/
-  return reg.test(path)
-}
-
 export function isDark(): boolean {
   return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
@@ -112,19 +107,19 @@ export function isJSON(str: string) {
       }
       return false
     }
-    catch (e) {
+    catch {
       return false
     }
   }
 }
 
 export function isImageUrl(url: string) {
-  const imgReg = /\.(gif|png|jpg|jpeg|webp|svg|bmp|tif)$/i
+  const imgReg = /\.(?:gif|png|jpg|jpeg|webp|svg|bmp|tif)$/i
 
   return imgReg.test(url)
 }
 
 export function isVideoUrl(url: string) {
-  const videoReg = /\.(swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4)$/i
+  const videoReg = /\.(?:swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4)$/i
   return videoReg.test(url)
 }

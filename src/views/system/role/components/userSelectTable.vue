@@ -13,11 +13,15 @@ const columns = [
 ]
 const tableProps: TableProps = reactive({ columns, selection: false, pagination: {} })
 const searchForm = ref({ username: '', realName: '' })
+
+const { register, tableObject, methods } = useTable(
+  { getListApi: getRoleUserList, props: tableProps },
+  { type: 0 },
+)
+
 function handleSearch(type: 'query' | 'reset') {
   methods.setSearchParams(type === 'query' ? searchForm.value : {})
 }
-
-const { register, tableObject, methods } = useTable({ getListApi: getRoleUserList, props: tableProps }, { type: 0 })
 
 async function handleRelevance(row: any) {
   const res = await addRoleUser({ roleId: props.roleId, userIds: [row.id as number] })
@@ -35,9 +39,21 @@ async function handleRelevance(row: any) {
       </template>
     </Search>
 
-    <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" :selection="false" :height="300" @register="register">
+    <Table
+      v-model:current-page="tableObject.currentPage"
+      v-model:page-size="tableObject.pageSize"
+      :selection="false"
+      :height="300"
+      @register="register"
+    >
       <template #operation="{ row }">
-        <ElButton v-has="'user-list/btn-view'" link type="primary" size="small" @click="handleRelevance(row)">
+        <ElButton
+          v-has="'user-list/btn-view'"
+          link
+          type="primary"
+          size="small"
+          @click="handleRelevance(row)"
+        >
           关联用户
         </ElButton>
       </template>

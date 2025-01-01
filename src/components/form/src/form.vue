@@ -1,4 +1,3 @@
-<!-- eslint-disable no-case-declarations -->
 <script lang="tsx">
 import type { FormSchema, FormSetPropsType } from '@/types/form'
 import type { FormProps } from './types'
@@ -156,14 +155,17 @@ export default defineComponent({
           // 如果是 Divider 组件，需要自己占用一行
           const isDivider = item.component === 'Divider'
           const Com = componentMap.Divider as ReturnType<typeof defineComponent>
-          return isDivider ? (
-            <Com {...{ contentPosition: 'left', ...item.componentProps }}>{item?.label}</Com>
-          ) : isCol ? (
-            // 如果需要栅格，需要包裹 ElCol
-            <ElCol {...setGridProp(item.colProps)}>{renderFormItem(item)}</ElCol>
-          ) : (
-            renderFormItem(item)
-          )
+          return isDivider
+            ? (
+                <Com {...{ contentPosition: 'left', ...item.componentProps }}>{item?.label}</Com>
+              )
+            : isCol
+              ? (
+                  <ElCol {...setGridProp(item.colProps)}>{renderFormItem(item)}</ElCol>
+                )
+              : (
+                  renderFormItem(item)
+                )
         })
     }
 
@@ -207,8 +209,7 @@ export default defineComponent({
             {{
               ...formItemSlots,
               default: () => {
-                // @ts-ignore
-                const Com = componentMap[item.component] as ReturnType<typeof defineComponent>
+                const Com = item.component ? componentMap[item.component] as ReturnType<typeof defineComponent> : null
 
                 const { autoSetPlaceholder } = unref(getProps)
 
@@ -236,17 +237,20 @@ export default defineComponent({
     // 渲染options
     const renderOptions = (item: FormSchema) => {
       switch (item.component) {
-        case 'Select':
+        case 'Select': {
           const { renderSelectOptions } = useRenderSelect(slots)
           return renderSelectOptions(item)
+        }
         case 'Radio':
-        case 'RadioButton':
+        case 'RadioButton': {
           const { renderRadioOptions } = useRenderRadio()
           return renderRadioOptions(item)
+        }
         case 'Checkbox':
-        case 'CheckboxButton':
+        case 'CheckboxButton': {
           const { renderCheckboxOptions } = useRenderCheckbox()
           return renderCheckboxOptions(item)
+        }
         default:
           break
       }
@@ -256,10 +260,9 @@ export default defineComponent({
     const getFormBindValue = () => {
       // 避免在标签上出现多余的属性
       const delKeys = ['schema', 'isCol', 'autoSetPlaceholder', 'isCustom', 'model']
-      const props = { ...unref(getProps) }
+      const props = { ...unref(getProps) } as Record<string, any>
       for (const key in props) {
         if (delKeys.includes(key)) {
-          // @ts-ignore
           delete props[key]
         }
       }

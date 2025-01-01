@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 【操作日志】列表查询
  * @param data
- * @returns
+ * @returns list
  */
 const getLogList = async (data: ListDto) => http.post<Log.ListVo>('/sysLog/operate/list', data)
 

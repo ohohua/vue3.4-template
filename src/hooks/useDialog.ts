@@ -25,43 +25,43 @@ interface Options<P> {
 /**
  * @param content string | 异步组件（组件props可传beforeCloseDialog回调）
  * @param options
- * @returns
+ * @returns [openDialog, closeDialog]
  */
 function useDialog<P = any>(content: Content, options: Options<P> = {}) {
   let dialogInstance: ComponentInternalInstance | null = null
   let fragment: Element | null = null
   const isFull = ref(false)
 
-  // @ts-ignore
   if (options && !options?.dialogSlots) {
     options.dialogSlots = {}
   }
-  // @ts-ignore
-  options.dialogSlots.header = () =>
-    h('div', { class: 'flex items-center font-bold text-xl h-[40px] px-4' }, [
-      h(
-        'span',
-        {
-          class: 'mr-auto',
-          style: { color: '#fff' },
-        },
-        // @ts-ignore
-        options?.dialogProps?.title || 'title',
-      ),
-      [
+
+  if (options.dialogSlots) {
+    options.dialogSlots.header = () =>
+      h('div', { class: 'flex items-center font-bold text-xl h-[40px] px-4' }, [
         h(
-          'div',
+          'span',
           {
-            class: 'cursor-pointer ',
-            onClick: (event) => {
-              event.stopPropagation()
-              closeDialog()
-            },
+            class: 'mr-auto',
+            style: { color: '#fff' },
           },
-          h(CloseBold, { style: { width: '1em', height: '1em', color: '#fff' } }),
+          options?.dialogProps?.title || 'title',
         ),
-      ],
-    ])
+        [
+          h(
+            'div',
+            {
+              class: 'cursor-pointer ',
+              onClick: (event) => {
+                event.stopPropagation()
+                closeDialog()
+              },
+            },
+            h(CloseBold, { style: { width: '1em', height: '1em', color: '#fff' } }),
+          ),
+        ],
+      ])
+  }
   // 关闭卸载组件
   const closeAfter = () => {
     if (fragment) {
@@ -85,7 +85,6 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
       closeAfter()
     }
 
-    // @ts-ignore
     const { dialogProps, contentProps = {} } = options
     // 调用before钩子，如果为false则不打开
     if (dialogProps?.onBeforeOpen?.() === false) {
@@ -95,7 +94,7 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
     let onBeforeClose: (() => Promise<boolean | void> | void | boolean) | null
 
     fragment = document.createDocumentFragment() as unknown as Element
-    // @ts-ignore
+
     const closeEventName = `on${upperFirst(options?.closeEventName || 'close')}`
     const vNode = h(
       ElDialog,
@@ -116,8 +115,9 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
           done()
         },
         onClosed: () => {
-          // @ts-ignore
-          dialogProps?.onClosed?.()
+          if (typeof dialogProps?.onClosed === 'function') {
+            dialogProps.onClosed()
+          }
           closeAfter()
           // 关闭后回收当前变量
           onBeforeClose = null
@@ -136,7 +136,7 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
                 },
               }),
         ],
-        // @ts-ignore
+
         ...options.dialogSlots,
       },
     )

@@ -173,14 +173,15 @@ export default defineComponent({
     const renderTableExpand = () => {
       const { align, headerAlign, expand } = unref(getProps)
       // 渲染展开行
-      return expand ? (
-        <el-table-column type="expand" align={align} headerAlign={headerAlign}>
-          {{
-            // @ts-ignore
-            default: (data: TableSlotDefault) => getSlot(slots, 'expand', data),
-          }}
-        </el-table-column>
-      ) : undefined
+      return expand
+        ? (
+            <el-table-column type="expand" align={align} headerAlign={headerAlign}>
+              {{
+                default: (data: TableSlotDefault) => getSlot(slots, 'expand', data),
+              }}
+            </el-table-column>
+          )
+        : undefined
     }
 
     const renderTreeTableColumn = (columnsChildren: TableColumn[]) => {
@@ -196,10 +197,8 @@ export default defineComponent({
               default: (data: TableSlotDefault) => {
                 return v.children && v.children.length
                   ? renderTableColumn(v.children)
-                  : // @ts-ignore
-                  getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field]
+                  : getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field]
               },
-              // @ts-ignore
               header: getSlot(slots, `${v.field}-header`),
             }}
           </el-table-column>
@@ -235,9 +234,7 @@ export default defineComponent({
                 default: (data: TableSlotDefault) =>
                   v.children && v.children.length
                     ? renderTreeTableColumn(v.children)
-                    : // @ts-ignore
-                    getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field],
-                // @ts-ignore
+                    : getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field],
                 header: () => getSlot(slots, `${v.field}-header`) || v.label,
               }}
             </el-table-column>
@@ -249,7 +246,6 @@ export default defineComponent({
     return () => (
       <div class={[unref(getProps).isFlex ? 'flex flex-col h-0 flex-1' : '', 'custom-table']} v-loading={unref(getProps).loading}>
         <el-table
-          // @ts-ignore
           ref={elTableRef}
           data={unref(getProps).data}
           onSelection-change={selectionChange}
@@ -258,7 +254,6 @@ export default defineComponent({
         >
           {{
             default: () => renderTableColumn(),
-            // @ts-ignore
             append: () => getSlot(slots, 'append'),
             empty: () => <el-empty image-size={80} description="暂无数据" />,
           }}

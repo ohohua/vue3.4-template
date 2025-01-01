@@ -33,8 +33,7 @@ const fileList = ref([])
 
 const handleChange: UploadProps['onChange'] = (uploadFile) => {
   if (uploadFile.response) {
-    // @ts-ignore
-    innerValue.value.push(uploadFile.response)
+    innerValue.value.push(uploadFile.response as ModelValueItem)
   }
 }
 function handleDelete(url: string) {

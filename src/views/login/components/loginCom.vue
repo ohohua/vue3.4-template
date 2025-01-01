@@ -35,33 +35,6 @@ const loginUserInfoForm = reactive<InfoLogin>(
   ),
 )
 
-async function onSubmitWithInfo() {
-  if (!canSubmitWithInfo.value && !loading.value)
-    return
-
-  try {
-    loading.value = true
-    // const { data } = await login(loginUsernameForm);
-    // const { token, username, sysMenus } = data || {};
-    const token = '123'
-    authStore.setData({ token, menu: [] })
-    authStore.setCheckTokenData({ username })
-    authStore.addAllRouter()
-
-    if (loginUserInfoForm.remember) {
-      delete loginUserInfoForm.password
-      localStorage.setItem('loginUserInfoForm', JSON.stringify(loginUserInfoForm))
-    }
-    else {
-      localStorage.removeItem('loginUserInfoForm')
-    }
-    router.replace({ name: 'admin' })
-  }
-  finally {
-    loading.value = false
-  }
-}
-
 const canSubmitWithInfo = computed(() => {
   const { unit, job, name, password } = loginUserInfoForm
   return Boolean(unit && job && name && password)
@@ -78,6 +51,37 @@ const loginUsernameForm = reactive<PasswordLogin>(
     JSON.parse(localStorage.getItem('loginUsernameForm') as string),
   ),
 )
+async function onSubmitWithInfo() {
+  if (!canSubmitWithInfo.value && !loading.value)
+    return
+
+  try {
+    loading.value = true
+    // const { data } = await login(loginUsernameForm);
+    // const { token, username, sysMenus } = data || {};
+    const token = '123'
+    authStore.setData({ token, menu: [] })
+    authStore.setCheckTokenData({ username: '123' })
+    authStore.addAllRouter()
+
+    if (loginUserInfoForm.remember) {
+      delete loginUserInfoForm.password
+      localStorage.setItem('loginUserInfoForm', JSON.stringify(loginUserInfoForm))
+    }
+    else {
+      localStorage.removeItem('loginUserInfoForm')
+    }
+    router.replace({ name: 'admin' })
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+const canSubmitWithName = computed(() => {
+  const { username, password } = loginUsernameForm
+  return Boolean(username && password)
+})
 
 async function onSubmitWithName() {
   if (!canSubmitWithName.value && !loading.value)
@@ -106,11 +110,6 @@ async function onSubmitWithName() {
     loading.value = false
   }
 }
-
-const canSubmitWithName = computed(() => {
-  const { username, password } = loginUsernameForm
-  return Boolean(username && password)
-})
 </script>
 
 <template>

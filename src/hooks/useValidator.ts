@@ -59,7 +59,7 @@ export function useValidator() {
   /**
    * 配合useForm schema校验使用
    * @param message 提示
-   * @returns
+   * @returns void
    */
   const rules = (message: string) => {
     return {

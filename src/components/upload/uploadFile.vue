@@ -24,8 +24,7 @@ const fileList = ref([])
 
 const handleChange: UploadProps['onChange'] = (data) => {
   if (data.response) {
-    // @ts-ignore
-    innerValue.value.push(data.response)
+    innerValue.value.push(data.response as ModelValueItem)
   }
 }
 function handleDelete(url: string) {

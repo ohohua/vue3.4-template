@@ -4,7 +4,7 @@ import http from '@/utils/http'
 /**
  * 终端列表
  * @param data
- * @returns
+ * @returns list
  */
 const getTerminalList = async (data: ListDto) => http.get<Terminal.ListVo>('/sysTerminal/getList', data)
 

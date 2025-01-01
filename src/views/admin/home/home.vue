@@ -46,7 +46,7 @@ const greet = computed(() => {
     </div>
 
     <div class="flex w-full gap-1 data-visual">
-      <el-calendar ref="calendar" v-model="date" class="border border-gray-200 rounded calendar-date">
+      <el-calendar v-model="date" class="border border-gray-200 rounded calendar-date">
         <template #date-cell="{ data }">
           <p :class="data.isSelected ? 'is-selected' : ''">
             {{ data.day.split("-").slice(1).join("-") }}

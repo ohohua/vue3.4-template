@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute()
+const _route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 

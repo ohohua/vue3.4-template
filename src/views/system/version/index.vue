@@ -39,7 +39,10 @@ const handleDelete = (row: Version.List) => methods.delList([row.id as string], 
         </Button>
       </ElSpace>
 
-      <Table v-model:page-size="tableObject.pageSize" v-model:current-page="tableObject.currentPage" @register="register">
+      <Table
+        v-model:page-size="tableObject.pageSize" v-model:current-page="tableObject.currentPage"
+        @register="register"
+      >
         <template #operation="{ row }">
           <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
             查看
@@ -47,7 +50,10 @@ const handleDelete = (row: Version.List) => methods.delList([row.id as string], 
           <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
             编辑
           </ElButton>
-          <ElButton v-has="'user-list/btn-update-password'" link type="primary" size="small" @click="handleDownload(row)">
+          <ElButton
+            v-has="'user-list/btn-update-password'" link type="primary" size="small"
+            @click="handleDownload(row)"
+          >
             下载
           </ElButton>
           <ElButton v-has="'user-list/btn-delete'" link type="danger" size="small" @click="handleDelete(row)">

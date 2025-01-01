@@ -7,7 +7,7 @@ const show = ref(true)
 </script>
 
 <template>
-  <div ref="el">
+  <div>
     <div class="flex title">
       <slot />
       <div v-if="collapse" class="flex items-center ml-4 h-[24px] text-[14px] cursor-pointer" @click="show = !show">
