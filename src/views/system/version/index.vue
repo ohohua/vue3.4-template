@@ -20,7 +20,7 @@ const handleDownload = async (row: Version.List) => {
   const res = await downloadVersion(row.id as string);
   download(new Blob([res]), row.fileName?.split(".")[0] as string, row.fileName?.split(".")[1] as string);
 };
-const handleDelete = (row: Version.List) => methods.delList([row.id as string], false, true);
+const handleDelete = (row: Version.List) => methods.delList([row.id as string], false, "是否删除该版本信息?");
 </script>
 
 <template>
