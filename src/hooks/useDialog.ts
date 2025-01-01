@@ -158,7 +158,7 @@ export default useDialog
 
 /**
   使用
- const { openDialog, closeDialog } = useDialog("hello", {
+ const [ openDialog, closeDialog ] = useDialog("hello", {
   dialogProps: {
     title: "测试",
   },

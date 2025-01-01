@@ -11,7 +11,10 @@ function handleChoose(index: number) {
 
 <template>
   <div class="w-[240px] flex">
-    <div v-for="(item, index) in menuTypeList" :key="index" class="default" :class="[typeIndex === index && 'active']" @click="handleChoose(index)">
+    <div
+      v-for="(item, index) in menuTypeList" :key="index" class="default" :class="[typeIndex === index && 'active']"
+      @click="handleChoose(index)"
+    >
       {{ item }}
     </div>
   </div>
@@ -27,7 +30,8 @@ function handleChoose(index: number) {
   cursor: pointer;
   user-select: none;
 }
-.default + .default {
+
+.default+.default {
   margin-left: 10px;
 }
 

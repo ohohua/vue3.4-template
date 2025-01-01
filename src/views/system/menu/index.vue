@@ -62,7 +62,10 @@ function doExpand(data: any, expansion: boolean) {
         </Button>
       </ElSpace>
 
-      <Table v-model:page-size="tableObject.pageSize" v-model:current-page="tableObject.currentPage" :tree-props="{ children: 'children' }" row-key="id" @register="register">
+      <Table
+        v-model:page-size="tableObject.pageSize" v-model:current-page="tableObject.currentPage"
+        :tree-props="{ children: 'children' }" row-key="id" @register="register"
+      >
         <template #operation="{ row }">
           <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
             编辑
