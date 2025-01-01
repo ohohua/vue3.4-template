@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    name: string;
+    name: string
   }>(),
   {
-    name: "",
+    name: '',
   },
-);
+)
 
-const getAssetsFile = (url: string) => {
-  return new URL(`../../assets/images/${url}`, import.meta.url).href;
-};
+function getAssetsFile(url: string) {
+  return new URL(`../../assets/images/${url}`, import.meta.url).href
+}
 
 const iconName = computed(() => {
-  const name = props.name.replace(/[A-Z]/g, (i) => "_" + i.toLowerCase());
-  return name && `${name}.png`;
-});
+  const name = props.name.replace(/[A-Z]/g, i => `_${i.toLowerCase()}`)
+  return name && `${name}.png`
+})
 
-const vClass = (el: Element, binding: any) => {
-  if (binding.arg === "add") {
-    el.classList.add(binding.value);
+function vClass(el: Element, binding: any) {
+  if (binding.arg === 'add') {
+    el.classList.add(binding.value)
   }
-};
+}
 </script>
 
 <template>

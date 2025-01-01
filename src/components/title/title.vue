@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { ArrowRight } from "@element-plus/icons-vue";
+import { ArrowRight } from '@element-plus/icons-vue'
 
-defineProps<{ collapse?: boolean }>();
+defineProps<{ collapse?: boolean }>()
 
-const show = ref(true);
+const show = ref(true)
 </script>
 
 <template>
   <div ref="el">
     <div class="flex title">
-      <slot></slot>
+      <slot />
       <div v-if="collapse" class="flex items-center ml-4 h-[24px] text-[14px] cursor-pointer" @click="show = !show">
-        <div :class="show && 'show'">{{ show ? "收起" : "展开" }}</div>
+        <div :class="show && 'show'">
+          {{ show ? "收起" : "展开" }}
+        </div>
         <el-icon><ArrowRight /></el-icon>
       </div>
     </div>
     <el-collapse-transition>
       <div v-show="show">
-        <slot name="content"></slot>
+        <slot name="content" />
       </div>
     </el-collapse-transition>
   </div>

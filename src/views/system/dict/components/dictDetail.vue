@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Dict } from "@/api/system/dict/dict";
+import type { Dict } from '@/api/system/dict/dict'
 
-defineProps<Dict.List>();
+defineProps<Dict.List>()
 </script>
 
 <template>

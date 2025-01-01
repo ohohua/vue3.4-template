@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Role } from "@/api/system/role/role";
+import type { Role } from '@/api/system/role/role'
 
-defineProps<Role.RoleItem>();
+defineProps<Role.RoleItem>()
 </script>
 
 <template>
@@ -21,14 +21,14 @@ defineProps<Role.RoleItem>();
         <label class="require">角色状态：</label>
         <span>{{ statusStr }}</span>
       </div>
-      <div class="w-[300px]"></div>
+      <div class="w-[300px]" />
     </div>
     <div class="flex justify-center mb-5">
       <div>
         <label>备注：</label>
         <span>{{ remark }}</span>
       </div>
-      <div class="w-[300px]"></div>
+      <div class="w-[300px]" />
     </div>
   </div>
 </template>

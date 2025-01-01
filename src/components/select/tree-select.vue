@@ -1,3 +1,32 @@
+<script lang="ts" setup>
+import { ElTreeSelect } from 'element-plus'
+import { computed, ref } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    label: string
+    modelValue: string
+  }>(),
+  {
+    label: '',
+    modelValue: '',
+  },
+)
+const emit = defineEmits(['update:modelValue'])
+const trees = ref(null)
+
+const innerValue = computed({
+  get: () => props.modelValue,
+  set: val => emit('update:modelValue', val),
+})
+// 选中节点
+// const clickNode = (node: any) => {
+//   const tree: any = trees.value
+//   tree.setCheckedKeys([node.id], false, true)
+//   emit('update:modelValue', node.id)
+// }
+</script>
+
 <template>
   <div class="label-select">
     <span class="label-select__title">{{ label }}</span>
@@ -5,34 +34,6 @@
     <ElTreeSelect v-bind="$attrs" ref="trees" v-model="innerValue" :placeholder="`请选择${label}`" class="flex-1" />
   </div>
 </template>
-<script lang="ts" setup>
-import { computed, ref } from "vue";
-import { ElTreeSelect } from "element-plus";
-
-const props = withDefaults(
-  defineProps<{
-    label: string;
-    modelValue: string;
-  }>(),
-  {
-    label: "",
-    modelValue: "",
-  },
-);
-const emit = defineEmits(["update:modelValue"]);
-const trees = ref(null);
-
-const innerValue = computed({
-  get: () => props.modelValue,
-  set: (val) => emit("update:modelValue", val),
-});
-//选中节点
-// const clickNode = (node: any) => {
-//   const tree: any = trees.value
-//   tree.setCheckedKeys([node.id], false, true)
-//   emit('update:modelValue', node.id)
-// }
-</script>
 
 <style lang="scss" scoped>
 .label-select {

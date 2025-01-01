@@ -1,13 +1,13 @@
-import http from "@/utils/http";
-import type { Log } from "./log";
+import type { Log } from './log'
+import http from '@/utils/http'
 
 /**
  * 【操作日志】列表查询
  * @param data
  * @returns
  */
-const getLogList = async (data: ListDto) => http.post<Log.ListVo>("/sysLog/operate/list", data);
+const getLogList = async (data: ListDto) => http.post<Log.ListVo>('/sysLog/operate/list', data)
 
-const editLog = async (data: Log.EditOperateLogParams) => http.post<Log.ListVo>("/sysLog/operate/edit", data);
+const editLog = async (data: Log.EditOperateLogParams) => http.post<Log.ListVo>('/sysLog/operate/edit', data)
 
-export { getLogList, editLog };
+export { editLog, getLogList }

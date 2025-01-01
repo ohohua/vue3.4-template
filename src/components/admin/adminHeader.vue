@@ -1,28 +1,28 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
 // import theme from "@/components/theme.js";
-import { ArrowDown } from "@element-plus/icons-vue";
-import { useRoute, useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth";
+import { ArrowDown } from '@element-plus/icons-vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute();
-const router = useRouter();
-const authStore = useAuthStore();
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
 
 // 获取用户信息
-const receiveUserInfo = async () => {};
+async function receiveUserInfo() {}
 
 // 登出
-const toLogout = async () => {
-  authStore.deleteToken();
-  router.replace({ name: "login" });
-};
+async function toLogout() {
+  authStore.deleteToken()
+  router.replace({ name: 'login' })
+}
 // 用于面包屑
 // const breadcrumbRoutes = computed(() => {
 //   return route.matched.filter((item) => item.meta && item.meta.title);
 // });
 onMounted(() => {
-  receiveUserInfo();
-});
+  receiveUserInfo()
+})
 </script>
 
 <template>
@@ -32,7 +32,9 @@ onMounted(() => {
       <div class="avatar mr-2.5">
         <!-- <el-avatar :src="userInfo.avatar" /> -->
       </div>
-      <h2 class="text-2xl text-white">vue3.4-template</h2>
+      <h2 class="text-2xl text-white">
+        vue3.4-template
+      </h2>
       <!-- 头部面包屑 -->
       <!-- <el-breadcrumb class="ml-6">
         <el-breadcrumb-item v-for="item in breadcrumbRoutes" :key="item.name" :to="{ name: item?.name }" class="text-base">
@@ -49,11 +51,14 @@ onMounted(() => {
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="logout" @click="toLogout"> <i class="text-lg"></i> 登出 </el-dropdown-item>
+            <el-dropdown-item command="logout" @click="toLogout">
+              <i class="text-lg" /> 登出
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
   </div>
 </template>
+
 <style lang="scss" scoped></style>

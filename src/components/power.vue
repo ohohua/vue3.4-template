@@ -3,14 +3,14 @@
 <template>
   <div class="container relative flex h-full bg-black">
     <div class="m-auto">
-      <div class="power"></div>
+      <div class="power" />
       <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
       </ul>
     </div>
   </div>

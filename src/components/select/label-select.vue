@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 const props = withDefaults(
   defineProps<{
-    label: string;
-    option: any[];
-    placeholder?: string;
+    label: string
+    option: any[]
+    placeholder?: string
   }>(),
   {
-    label: "",
-    placeholder: "",
+    label: '',
+    placeholder: '',
   },
-);
+)
 
-const innerValue = defineModel<number>();
+const innerValue = defineModel<number>()
 </script>
 
 <template>

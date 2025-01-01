@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import adminHeader from "@/components/admin/adminHeader.vue";
-import adminAside from "@/components/admin/adminAside.vue";
-import adminTabs from "@/components/admin/adminTabs.vue";
-import "element-plus/theme-chalk/el-backtop.css";
-import { useCollapseStore } from "@/stores/collapse";
+import adminAside from '@/components/admin/adminAside.vue'
+import adminHeader from '@/components/admin/adminHeader.vue'
+import adminTabs from '@/components/admin/adminTabs.vue'
+import { useCollapseStore } from '@/stores/collapse'
+import 'element-plus/theme-chalk/el-backtop.css'
 
-const collapseStore = useCollapseStore();
+const collapseStore = useCollapseStore()
 
-const tabEl = ref();
-const closeTab = (tabName: string) => {
-  tabEl.value.removeTab(tabName);
-};
+const tabEl = ref()
+function closeTab(tabName: string) {
+  tabEl.value.removeTab(tabName)
+}
 </script>
 
 <template>
@@ -18,31 +18,31 @@ const closeTab = (tabName: string) => {
     <!-- 占满全屏 -->
     <!-- 头部 -->
     <el-header class="border-b border-solid border-b-gray-500/20 !h-[80px] bg-[#257edb]">
-      <adminHeader></adminHeader>
+      <adminHeader />
     </el-header>
 
     <el-container class="overflow-auto">
       <!-- 侧边栏 -->
       <el-aside class="overflow-hidden transition-all duration-200 ease" :width="collapseStore.isCollapse ? '64px' : '230px'">
-        <adminAside></adminAside>
+        <adminAside />
       </el-aside>
       <!-- 主体内容和标签页 -->
       <el-container>
-        <adminTabs ref="tabEl"></adminTabs>
+        <adminTabs ref="tabEl" />
 
         <el-main class="h-full overflow-auto main bg-[#edf5fd]">
           <router-view v-slot="{ Component }">
             <Transition name="fade" mode="out-in">
-              <component :is="Component" @close="closeTab"></component>
+              <component :is="Component" @close="closeTab" />
             </Transition>
           </router-view>
 
           <!-- 引入回到顶部按钮 -->
           <el-backtop target="main" :visibility-height="300" :right="50" :bottom="50">
-            <i class="iconfont icon-huidaodingbu" style="font-size: 24px"></i>
+            <i class="iconfont icon-huidaodingbu" style="font-size: 24px" />
           </el-backtop>
         </el-main>
-        <el-footer height="0"> </el-footer>
+        <el-footer height="0" />
       </el-container>
     </el-container>
   </el-container>

@@ -1,11 +1,11 @@
-import http from "@/utils/http";
-import type { Interface } from "./interface.js";
+import type { Interface } from './interface.js'
+import http from '@/utils/http'
 
 /**
  * 数据处理列表
  * @param data
  * @returns
  */
-const getInterfaceList = async (data: ListDto) => http.get<Interface.ListVo>("/sysUser/getList", data);
+const getInterfaceList = async (data: ListDto) => http.get<Interface.ListVo>('/sysUser/getList', data)
 
-export { getInterfaceList };
+export { getInterfaceList }

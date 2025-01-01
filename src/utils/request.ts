@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { useAuthStore } from '@/stores/auth'
+import axios from 'axios'
 
 const service = axios.create({
   baseURL: 'http://127.0.0.1:8888/api/',
@@ -87,7 +87,7 @@ service.interceptors.request.use(
     const authStore = useAuthStore()
     const token = authStore.token
     // 检查是否在白名单中
-    if (whiteList.some((url) => config.url?.endsWith(url))) {
+    if (whiteList.some(url => config.url?.endsWith(url))) {
       return config // 白名单请求，不添加token直接返回配置
     }
     // 添加token

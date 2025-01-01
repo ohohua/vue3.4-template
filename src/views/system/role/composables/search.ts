@@ -1,24 +1,26 @@
-import type { Dict } from "@/api/system/dict/dict";
-import type { Recordable } from "@/types/form";
-import { statusOptions } from "@/utils/option";
+import type { Dict } from '@/api/system/dict/dict'
+import type { Recordable } from '@/types/form'
+import { statusOptions } from '@/utils/option'
 
-const emptyForm = () => ({
-  status: undefined,
-  roleName: undefined,
-  roleCode: undefined,
-});
+function emptyForm() {
+  return {
+    status: undefined,
+    roleName: undefined,
+    roleCode: undefined,
+  }
+}
 // 表单
 
 function search(fn: (data: Recordable) => void) {
-  const searchForm = ref(emptyForm());
+  const searchForm = ref(emptyForm())
   // select选项
-  const searchOptions = reactive<Record<string, Dict.DictItem[]>>({ status: statusOptions });
+  const searchOptions = reactive<Record<string, Dict.DictItem[]>>({ status: statusOptions })
 
-  const handleSearch = (type: "query" | "reset") => {
-    fn(type === "query" ? searchForm.value : {});
-  };
+  const handleSearch = (type: 'query' | 'reset') => {
+    fn(type === 'query' ? searchForm.value : {})
+  }
 
-  return { searchForm, searchOptions, handleSearch };
+  return { searchForm, searchOptions, handleSearch }
 }
 
-export default search;
+export default search

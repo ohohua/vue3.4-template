@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ElIcon } from "element-plus";
+import { ElIcon } from 'element-plus'
 // import { Search } from "@element-plus/icons";
 </script>
+
 <template>
   <div class="search-input">
-    <input placeholder="按机构名称搜索" />
-    <el-icon>
+    <input placeholder="按机构名称搜索">
+    <ElIcon>
       <!-- <Search /> -->
-    </el-icon>
+    </ElIcon>
   </div>
 </template>
 

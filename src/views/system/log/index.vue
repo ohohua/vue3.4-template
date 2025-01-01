@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import useTable from "@/hooks/useTable";
-import Button from "@/components/button/button.vue";
-import search from "./composables/search";
-import operate from "./composables/operate";
-import { tableProps } from "./composables/table";
-import { getLogList } from "@/api";
-import useDialog from "@/hooks/useDialog";
-const logDetail = defineAsyncComponent(() => import("./components/logDetail.vue"));
+import { getLogList } from '@/api'
+import Button from '@/components/button/button.vue'
+import useDialog from '@/hooks/useDialog'
+import useTable from '@/hooks/useTable'
+import operate from './composables/operate'
+import search from './composables/search'
+import { tableProps } from './composables/table'
 
-const { register, tableObject, methods } = useTable({ getListApi: getLogList, props: tableProps });
+const logDetail = defineAsyncComponent(() => import('./components/logDetail.vue'))
 
-const { searchForm, searchOptions, handleSearch } = search(methods.setSearchParams);
+const { register, tableObject, methods } = useTable({ getListApi: getLogList, props: tableProps })
 
-const { handleEdit, handleExport } = operate(() => methods.getList());
+const { searchForm, searchOptions, handleSearch } = search(methods.setSearchParams)
 
-const [handleDetail] = useDialog(logDetail, { dialogProps: { title: "日志详情" } });
+const { handleEdit, handleExport } = operate(() => methods.getList())
+
+const [handleDetail] = useDialog(logDetail, { dialogProps: { title: '日志详情' } })
 </script>
 
 <template>
@@ -41,13 +42,19 @@ const [handleDetail] = useDialog(logDetail, { dialogProps: { title: "日志详�
 
     <Container>
       <ElSpace class="mb-[20px]">
-        <Button v-has="'user-list/btn-export'" icon="Upload" @click="handleExport">导出</Button>
+        <Button v-has="'user-list/btn-export'" icon="Upload" @click="handleExport">
+          导出
+        </Button>
       </ElSpace>
 
-      <Table @register="register" v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize">
+      <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" @register="register">
         <template #operation="{ row }">
-          <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">查看</ElButton>
-          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">编辑</ElButton>
+          <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
+            查看
+          </ElButton>
+          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
+            编辑
+          </ElButton>
         </template>
       </Table>
     </Container>

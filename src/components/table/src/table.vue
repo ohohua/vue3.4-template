@@ -1,15 +1,15 @@
 <script lang="tsx">
-import { setIndex } from "./helper";
-import { getSlot } from "./tsxHelper";
-import { set } from "lodash-es";
-import type { PropType } from "vue";
-import type { TableProps } from "./types";
-import type { TableColumn, TableSlotDefault, Pagination, TableSetPropsType } from "@/types/table";
-import type { ComponentRef, Recordable } from "@/types/form";
-import type { ElTable } from "element-plus";
+import type { ComponentRef, Recordable } from '@/types/form'
+import type { Pagination, TableColumn, TableSetPropsType, TableSlotDefault } from '@/types/table'
+import type { ElTable } from 'element-plus'
+import type { PropType } from 'vue'
+import type { TableProps } from './types'
+import { set } from 'lodash-es'
+import { setIndex } from './helper'
+import { getSlot } from './tsxHelper'
 
 export default defineComponent({
-  name: "CustomTable",
+  name: 'CustomTable',
   props: {
     pageSize: { type: Number, default: 10 },
     currentPage: { type: Number, default: 1 },
@@ -36,14 +36,14 @@ export default defineComponent({
     // 对齐方式
     align: {
       type: String,
-      default: "center",
-      validate: (v: string) => ["left", "center", "right"].includes(v),
+      default: 'center',
+      validate: (v: string) => ['left', 'center', 'right'].includes(v),
     },
     // 表头对齐方式
     headerAlign: {
       type: String,
-      default: "center",
-      validate: (v: string) => ["left", "center", "right"].includes(v),
+      default: 'center',
+      validate: (v: string) => ['left', 'center', 'right'].includes(v),
     },
 
     data: {
@@ -56,61 +56,62 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: ["update:pageSize", "update:currentPage", "register"],
+  emits: ['update:pageSize', 'update:currentPage', 'register'],
   setup(props, { attrs, slots, emit, expose }) {
-    const elTableRef = ref<ComponentRef<typeof ElTable>>();
+    const elTableRef = ref<ComponentRef<typeof ElTable>>()
 
     // 注册
     onMounted(() => {
-      const tableRef = unref(elTableRef);
-      emit("register", tableRef?.$parent, elTableRef);
-    });
+      const tableRef = unref(elTableRef)
+      emit('register', tableRef?.$parent, elTableRef)
+    })
 
-    const pageSizeRef = ref(props.pageSize);
+    const pageSizeRef = ref(props.pageSize)
 
-    const currentPageRef = ref(props.currentPage);
+    const currentPageRef = ref(props.currentPage)
 
     // useTable传入的props
-    const outsideProps = ref<TableProps>({});
+    const outsideProps = ref<TableProps>({})
 
-    const mergeProps = ref<TableProps>({});
+    const mergeProps = ref<TableProps>({})
 
     const getProps = computed(() => {
-      const propsObj = { ...props };
-      Object.assign(propsObj, unref(mergeProps));
-      return propsObj;
-    });
+      const propsObj = { ...props }
+      Object.assign(propsObj, unref(mergeProps))
+      return propsObj
+    })
 
     const setProps = (props: TableProps = {}) => {
-      mergeProps.value = Object.assign(unref(mergeProps), props);
-      outsideProps.value = props;
-    };
+      mergeProps.value = Object.assign(unref(mergeProps), props)
+      outsideProps.value = props
+    }
 
     const setColumn = (columnProps: TableSetPropsType[], columnsChildren?: TableColumn[]) => {
-      const { columns } = unref(getProps);
+      const { columns } = unref(getProps)
       for (const v of columnsChildren || columns) {
         for (const item of columnProps) {
           if (v.field === item.field) {
-            set(v, item.path, item.value);
-          } else if (v.children?.length) {
-            setColumn(columnProps, v.children);
+            set(v, item.path, item.value)
+          }
+          else if (v.children?.length) {
+            setColumn(columnProps, v.children)
           }
         }
       }
-    };
+    }
 
-    const selections = ref<Recordable[]>([]);
+    const selections = ref<Recordable[]>([])
 
     const selectionChange = (selection: Recordable[]) => {
-      selections.value = selection;
-    };
+      selections.value = selection
+    }
 
     expose({
       setProps,
       setColumn,
       selections,
       elTableRef,
-    });
+    })
 
     const pagination = computed(() => {
       return Object.assign(
@@ -118,76 +119,76 @@ export default defineComponent({
           small: false,
           background: true,
           pagerCount: 7,
-          layout: "prev, pager, next,sizes, jumper, total",
+          layout: 'prev, pager, next,sizes, jumper, total',
           pageSizes: [10, 20, 50, 100],
           disabled: false,
           hideOnSinglePage: false,
           total: 0,
         },
         unref(getProps).pagination,
-      );
-    });
+      )
+    })
 
     watch(
       () => unref(getProps).pageSize,
       (val: number) => {
-        pageSizeRef.value = val;
+        pageSizeRef.value = val
       },
-    );
+    )
 
     watch(
       () => unref(getProps).currentPage,
       (val: number) => {
-        currentPageRef.value = val;
+        currentPageRef.value = val
       },
-    );
+    )
 
     watch(
       () => pageSizeRef.value,
       (val: number) => {
-        emit("update:pageSize", val);
+        emit('update:pageSize', val)
       },
-    );
+    )
 
     watch(
       () => currentPageRef.value,
       (val: number) => {
-        emit("update:currentPage", val);
+        emit('update:currentPage', val)
       },
-    );
+    )
 
     const getBindValue = computed(() => {
-      const bindValue: Recordable = { ...attrs, ...props };
-      delete bindValue.columns;
-      delete bindValue.data;
-      return bindValue;
-    });
+      const bindValue: Recordable = { ...attrs, ...props }
+      delete bindValue.columns
+      delete bindValue.data
+      return bindValue
+    })
 
     const renderTableSelection = () => {
-      const { selection, reserveSelection, align, headerAlign } = unref(getProps);
+      const { selection, reserveSelection, align, headerAlign } = unref(getProps)
       // 渲染多选
-      return selection ? <el-table-column type="selection" reserveSelection={reserveSelection} align={align} headerAlign={headerAlign} width="50"></el-table-column> : undefined;
-    };
+      return selection ? <el-table-column type="selection" reserveSelection={reserveSelection} align={align} headerAlign={headerAlign} width="50"></el-table-column> : undefined
+    }
 
     const renderTableExpand = () => {
-      const { align, headerAlign, expand } = unref(getProps);
+      const { align, headerAlign, expand } = unref(getProps)
       // 渲染展开行
       return expand ? (
         <el-table-column type="expand" align={align} headerAlign={headerAlign}>
           {{
             // @ts-ignore
-            default: (data: TableSlotDefault) => getSlot(slots, "expand", data),
+            default: (data: TableSlotDefault) => getSlot(slots, 'expand', data),
           }}
         </el-table-column>
-      ) : undefined;
-    };
+      ) : undefined
+    }
 
     const renderTreeTableColumn = (columnsChildren: TableColumn[]) => {
-      const { align, headerAlign, showOverflowTooltip } = unref(getProps);
+      const { align, headerAlign, showOverflowTooltip } = unref(getProps)
       return columnsChildren.map((v, index) => {
-        const props = { ...v };
+        const props = { ...v }
         if (props.children) {
-          delete props.children;
+          delete props.children
         }
         return (
           <el-table-column key={index} showOverflowTooltip={showOverflowTooltip} align={align} headerAlign={headerAlign} {...props} prop={v.field}>
@@ -196,22 +197,22 @@ export default defineComponent({
                 return v.children && v.children.length
                   ? renderTableColumn(v.children)
                   : // @ts-ignore
-                    getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field];
+                  getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field]
               },
               // @ts-ignore
               header: getSlot(slots, `${v.field}-header`),
             }}
           </el-table-column>
-        );
-      });
-    };
+        )
+      })
+    }
 
     const renderTableColumn = (columnsChildren?: TableColumn[]) => {
-      const { columns, reserveIndex, pageSize, currentPage, align, headerAlign, showOverflowTooltip } = unref(getProps);
+      const { columns, reserveIndex, pageSize, currentPage, align, headerAlign, showOverflowTooltip } = unref(getProps)
       return [...[renderTableExpand()], ...[renderTableSelection()]].concat(
         (columnsChildren || columns).map((v, index) => {
           // 自定生成序号
-          if (v.type === "index") {
+          if (v.type === 'index') {
             return (
               <el-table-column
                 type="index"
@@ -220,12 +221,13 @@ export default defineComponent({
                 headerAlign={v.headerAlign || headerAlign}
                 label={v.label}
                 width="65px"
-              ></el-table-column>
-            );
+              >
+              </el-table-column>
+            )
           }
-          const props = { ...v };
+          const props = { ...v }
           if (props.children) {
-            delete props.children;
+            delete props.children
           }
           return (
             <el-table-column key={index} showOverflowTooltip={showOverflowTooltip} align={align} headerAlign={headerAlign} {...props} prop={v.field}>
@@ -234,18 +236,18 @@ export default defineComponent({
                   v.children && v.children.length
                     ? renderTreeTableColumn(v.children)
                     : // @ts-ignore
-                      getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field],
+                    getSlot(slots, v.field, data) || v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) || data.row[v.field],
                 // @ts-ignore
                 header: () => getSlot(slots, `${v.field}-header`) || v.label,
               }}
             </el-table-column>
-          );
+          )
         }),
-      );
-    };
+      )
+    }
 
     return () => (
-      <div class={[unref(getProps).isFlex ? "flex flex-col h-0 flex-1" : "", "custom-table"]} v-loading={unref(getProps).loading}>
+      <div class={[unref(getProps).isFlex ? 'flex flex-col h-0 flex-1' : '', 'custom-table']} v-loading={unref(getProps).loading}>
         <el-table
           // @ts-ignore
           ref={elTableRef}
@@ -257,18 +259,21 @@ export default defineComponent({
           {{
             default: () => renderTableColumn(),
             // @ts-ignore
-            append: () => getSlot(slots, "append"),
+            append: () => getSlot(slots, 'append'),
             empty: () => <el-empty image-size={80} description="暂无数据" />,
           }}
         </el-table>
-        {unref(getProps).pagination ? (
-          <el-pagination v-model:pageSize={pageSizeRef.value} v-model:currentPage={currentPageRef.value} class="mt-10px pagination" {...toValue(pagination)} />
-        ) : undefined}
+        {unref(getProps).pagination
+          ? (
+              <el-pagination v-model:pageSize={pageSizeRef.value} v-model:currentPage={currentPageRef.value} class="mt-10px pagination" {...toValue(pagination)} />
+            )
+          : undefined}
       </div>
-    );
+    )
   },
-});
+})
 </script>
+
 <style lang="scss" scoped>
 .custom-table {
   // 默认使用 `flex: 1` 撑开table

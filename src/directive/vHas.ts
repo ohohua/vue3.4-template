@@ -10,4 +10,4 @@ export default {
     //   el.style.display = "inline-block";
     // }
   },
-};
+}

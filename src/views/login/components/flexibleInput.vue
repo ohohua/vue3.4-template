@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { View, Hide } from "@element-plus/icons-vue";
+import { Hide, View } from '@element-plus/icons-vue'
 
-const props = defineProps<{ placeholder: string; password: boolean }>();
+const props = defineProps<{ placeholder: string, password: boolean }>()
 
-const innerValue = defineModel<string>();
-const inputEl = ref();
+const innerValue = defineModel<string>()
+const inputEl = ref()
 
-const isPasswordVisible = ref(!props.password);
-const togglePasswordVisibility = () => {
-  isPasswordVisible.value = !isPasswordVisible.value;
-};
+const isPasswordVisible = ref(!props.password)
+function togglePasswordVisibility() {
+  isPasswordVisible.value = !isPasswordVisible.value
+}
 </script>
 
 <template>
@@ -21,12 +21,12 @@ const togglePasswordVisibility = () => {
       class="w-full h-10 px-3 transition-all duration-300 bg-transparent border-2 border-[#dcdfe6] rounded outline-none focus:border-[#409eff]"
       placeholder=""
       autocomplete="new-password"
-    />
-    <label @click="inputEl.focus()" class="absolute text-gray-400 transition-all duration-300 transform -translate-y-1/2 cursor-text placeholder top-1/2 left-2">
+    >
+    <label class="absolute text-gray-400 transition-all duration-300 transform -translate-y-1/2 cursor-text placeholder top-1/2 left-2" @click="inputEl.focus()">
       {{ innerValue ? placeholder : `请输入${placeholder}` }}
     </label>
 
-    <div class="password-toggle absolute top-2.5 right-2 cursor-pointer" v-if="password">
+    <div v-if="password" class="password-toggle absolute top-2.5 right-2 cursor-pointer">
       <el-icon @click="togglePasswordVisibility">
         <component :is="isPasswordVisible ? View : Hide" />
       </el-icon>

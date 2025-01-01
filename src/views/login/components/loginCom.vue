@@ -1,27 +1,26 @@
 <script lang="ts" setup>
-import { useAuthStore } from "@/stores/auth";
 // import theme from "@/components/theme";
-import type { InfoLogin, PasswordLogin } from "@/types";
-import { useRouter } from "vue-router";
-import { login } from "@/api";
-import flexibleInput from "./flexibleInput.vue";
-import flexibleSelect from "./flexibleSelect.vue";
+import type { InfoLogin, PasswordLogin } from '@/types'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+import flexibleInput from './flexibleInput.vue'
+import flexibleSelect from './flexibleSelect.vue'
 
-const authStore = useAuthStore();
-const router = useRouter();
-const type = ref("first");
-const loading = ref(false);
+const authStore = useAuthStore()
+const router = useRouter()
+const type = ref('first')
+const loading = ref(false)
 
 const unitOptions = ref([
   {
-    label: "xx中队1",
+    label: 'xx中队1',
     value: 1,
   },
   {
-    label: "xx中队2",
+    label: 'xx中队2',
     value: 2,
   },
-]);
+])
 /** 个人信息登录 */
 const loginUserInfoForm = reactive<InfoLogin>(
   Object.assign(
@@ -32,38 +31,41 @@ const loginUserInfoForm = reactive<InfoLogin>(
       password: undefined,
       remember: false,
     },
-    JSON.parse(localStorage.getItem("loginUserInfoForm") as string),
+    JSON.parse(localStorage.getItem('loginUserInfoForm') as string),
   ),
-);
+)
 
-const onSubmitWithInfo = async () => {
-  if (!canSubmitWithInfo.value && !loading.value) return;
+async function onSubmitWithInfo() {
+  if (!canSubmitWithInfo.value && !loading.value)
+    return
 
   try {
-    loading.value = true;
+    loading.value = true
     // const { data } = await login(loginUsernameForm);
     // const { token, username, sysMenus } = data || {};
-    const token = "123";
-    authStore.setData({ token, menu: [] });
-    authStore.setCheckTokenData({ username });
-    authStore.addAllRouter();
+    const token = '123'
+    authStore.setData({ token, menu: [] })
+    authStore.setCheckTokenData({ username })
+    authStore.addAllRouter()
 
     if (loginUserInfoForm.remember) {
-      delete loginUserInfoForm.password;
-      localStorage.setItem("loginUserInfoForm", JSON.stringify(loginUserInfoForm));
-    } else {
-      localStorage.removeItem("loginUserInfoForm");
+      delete loginUserInfoForm.password
+      localStorage.setItem('loginUserInfoForm', JSON.stringify(loginUserInfoForm))
     }
-    router.replace({ name: "admin" });
-  } finally {
-    loading.value = false;
+    else {
+      localStorage.removeItem('loginUserInfoForm')
+    }
+    router.replace({ name: 'admin' })
   }
-};
+  finally {
+    loading.value = false
+  }
+}
 
 const canSubmitWithInfo = computed(() => {
-  const { unit, job, name, password } = loginUserInfoForm;
-  return Boolean(unit && job && name && password);
-});
+  const { unit, job, name, password } = loginUserInfoForm
+  return Boolean(unit && job && name && password)
+})
 
 /** 用户名登录 */
 const loginUsernameForm = reactive<PasswordLogin>(
@@ -73,44 +75,49 @@ const loginUsernameForm = reactive<PasswordLogin>(
       password: undefined,
       remember: false,
     },
-    JSON.parse(localStorage.getItem("loginUsernameForm") as string),
+    JSON.parse(localStorage.getItem('loginUsernameForm') as string),
   ),
-);
+)
 
-const onSubmitWithName = async () => {
-  if (!canSubmitWithName.value && !loading.value) return;
+async function onSubmitWithName() {
+  if (!canSubmitWithName.value && !loading.value)
+    return
 
   try {
-    loading.value = true;
+    loading.value = true
     // const { data } = await login(loginUsernameForm);
     // const { token, sysMenus, username } = data || {};
-    const token = "123";
-    const username = "admin";
-    authStore.setData({ token, menu: [] });
-    authStore.setCheckTokenData({ username });
-    authStore.addAllRouter();
+    const token = '123'
+    const username = 'admin'
+    authStore.setData({ token, menu: [] })
+    authStore.setCheckTokenData({ username })
+    authStore.addAllRouter()
 
     if (loginUsernameForm.remember) {
-      delete loginUsernameForm.password;
-      localStorage.setItem("loginUsernameForm", JSON.stringify(loginUsernameForm));
-    } else {
-      localStorage.removeItem("loginUsernameForm");
+      delete loginUsernameForm.password
+      localStorage.setItem('loginUsernameForm', JSON.stringify(loginUsernameForm))
     }
-    router.replace({ name: "admin" });
-  } finally {
-    loading.value = false;
+    else {
+      localStorage.removeItem('loginUsernameForm')
+    }
+    router.replace({ name: 'admin' })
   }
-};
+  finally {
+    loading.value = false
+  }
+}
 
 const canSubmitWithName = computed(() => {
-  const { username, password } = loginUsernameForm;
-  return Boolean(username && password);
-});
+  const { username, password } = loginUsernameForm
+  return Boolean(username && password)
+})
 </script>
 
 <template>
   <div class="login-page">
-    <h2 class="mb-20 text-5xl font-bold text-center">vue3.4-template</h2>
+    <h2 class="mb-20 text-5xl font-bold text-center">
+      vue3.4-template
+    </h2>
     <div class="flex overflow-hidden login-container">
       <div class="p-4 form-container w-[400px] m-auto">
         <el-tabs v-model="type" stretch>
@@ -122,7 +129,9 @@ const canSubmitWithName = computed(() => {
               <flexible-input v-model="loginUserInfoForm.name" placeholder="姓名" :password="false" />
               <flexible-input v-model="loginUserInfoForm.password" placeholder="密码" password />
               <el-checkbox v-model="loginUserInfoForm.remember" label="记住个人信息" size="large" />
-              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithInfo" :loading="loading" @click="onSubmitWithInfo"> 登录 </el-button>
+              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithInfo" :loading="loading" @click="onSubmitWithInfo">
+                登录
+              </el-button>
             </el-form>
           </el-tab-pane>
           <el-tab-pane label="用户名登录" name="second">
@@ -131,7 +140,9 @@ const canSubmitWithName = computed(() => {
               <flexible-input v-model="loginUsernameForm.username" placeholder="用户名" :password="false" />
               <flexible-input v-model="loginUsernameForm.password" placeholder="密码" password />
               <el-checkbox v-model="loginUsernameForm.remember" label="记住用户名" size="large" />
-              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithName" :loading="loading" @click="onSubmitWithName"> 登录 </el-button>
+              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithName" :loading="loading" @click="onSubmitWithName">
+                登录
+              </el-button>
             </el-form>
           </el-tab-pane>
         </el-tabs>

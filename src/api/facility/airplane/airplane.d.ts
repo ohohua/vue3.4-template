@@ -1,10 +1,10 @@
 export namespace Airplane {
   export interface ListVo {
-    list: List[];
-    total: number;
+    list: List[]
+    total: number
   }
 
   interface List {
-    id: number;
+    id: number
   }
 }

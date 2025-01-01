@@ -1,9 +1,9 @@
 export namespace CollectionCustom {
   export interface ListVo {
-    list: List[];
-    total: number;
+    list: List[]
+    total: number
   }
   export interface List {
-    id?: number;
+    id?: number
   }
 }

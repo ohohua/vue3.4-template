@@ -1,19 +1,20 @@
-<template>
-  <div class="label-input">
-    <span class="label-input__title">{{ label }}：</span>
-    <el-input v-model="innerValue" style="flex: 1" :placeholder="`请输入${label}`" clearable></el-input>
-  </div>
-</template>
 <script lang="ts" setup>
 defineProps({
   label: {
     type: String,
-    default: "",
+    default: '',
   },
-});
+})
 
-const innerValue = defineModel<string>();
+const innerValue = defineModel<string>()
 </script>
+
+<template>
+  <div class="label-input">
+    <span class="label-input__title">{{ label }}：</span>
+    <el-input v-model="innerValue" style="flex: 1" :placeholder="`请输入${label}`" clearable />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .label-input {

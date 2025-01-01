@@ -1,29 +1,28 @@
 <script setup lang="ts">
-import "@/types/global.d.ts";
-import { Expand, Fold } from "@element-plus/icons-vue";
-import { useCollapseStore } from "@/stores/collapse";
-import { useRoute, useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/auth";
-import { baseRouter } from "@/router/routes";
-import { getAssetsFile } from "@/utils";
+import { baseRouter } from '@/router/routes'
+import { useAuthStore } from '@/stores/auth'
+import { useCollapseStore } from '@/stores/collapse'
+import { getAssetsFile } from '@/utils'
+import { useRoute, useRouter } from 'vue-router'
+import '@/types/global.d.ts'
 
-const authStore = useAuthStore();
-const collapseStore = useCollapseStore();
-const router = useRouter();
-const route = useRoute();
+const authStore = useAuthStore()
+const collapseStore = useCollapseStore()
+const router = useRouter()
+const route = useRoute()
 
-const baseRouteFilter = computed(() => baseRouter.filter((item) => !item.meta.hidden));
-const active = ref(route.name as string);
+const baseRouteFilter = computed(() => baseRouter.filter(item => !item.meta.hidden))
+const active = ref(route.name as string)
 
 /* 路由跳转函数 */
 function jumpRoute(item: any) {
-  router.push({ name: item.name });
+  router.push({ name: item.name })
 }
 
 // 监听路由变化，更新激活菜单项
 watch(route, (newRoute) => {
-  active.value = newRoute.name as string;
-});
+  active.value = newRoute.name as string
+})
 </script>
 
 <template>
@@ -45,14 +44,14 @@ watch(route, (newRoute) => {
           <!-- 判断是否有二级菜单 -->
           <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
             <template #title>
-              <img :src="getAssetsFile(item.meta.icon)" alt="icon" class="mr-[12px]" />
+              <img :src="getAssetsFile(item.meta.icon)" alt="icon" class="mr-[12px]">
               <!-- <el-icon> -->
               <!-- <component :is="item.meta.icon" /> -->
               <!-- </el-icon> -->
               <span v-if="!collapseStore.isCollapse">{{ item.meta.title }}</span>
             </template>
             <!-- 遍历二级菜单项 -->
-            <el-menu-item v-for="subItem in item.children" :index="subItem.name" :key="subItem.path" @click="jumpRoute(subItem)">
+            <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.name" @click="jumpRoute(subItem)">
               <!-- <el-icon>
                 <component :is="subItem.meta.icon" />
               </el-icon> -->
@@ -62,7 +61,7 @@ watch(route, (newRoute) => {
 
           <!-- 没有二级菜单 -->
           <el-menu-item v-else :index="item.name" @click="jumpRoute(item)">
-            <img :src="getAssetsFile(item.meta.icon)" alt="icon" class="mr-[12px]" />
+            <img :src="getAssetsFile(item.meta.icon)" alt="icon" class="mr-[12px]">
             <!-- <el-icon>
               <component :is="item.meta.icon" />
             </el-icon> -->

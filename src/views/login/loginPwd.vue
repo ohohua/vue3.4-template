@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import loginCom from "./components/loginCom.vue";
+import loginCom from './components/loginCom.vue'
 </script>
 
 <template>

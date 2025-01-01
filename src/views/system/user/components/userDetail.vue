@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { User } from "@/api/system/user/user";
+import type { User } from '@/api/system/user/user'
 
-defineProps<User.EditUserDto>();
+defineProps<User.EditUserDto>()
 </script>
 
 <template>

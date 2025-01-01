@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+const props = withDefaults(
+  defineProps<{
+    label: string
+    modelValue: any
+    defaultDate?: string[]
+    format?: string
+    valueFormat?: string
+    dateFormat?: string
+    timeFormat?: string
+  }>(),
+  {
+    label: '',
+    format: 'YYYY-MM-DD',
+    valueFormat: 'YYYY-MM-DD',
+    dateFormat: 'YYYY-MM-DD',
+    timeFormat: 'hh:mm',
+    defaultDate: () => [],
+  },
+)
+
+const activeDate = defineModel<string[]>({ required: true })
+
+onMounted(() => {
+  activeDate.value = props.defaultDate
+})
+</script>
+
 <template>
   <div class="label-picker">
     <span class="label-picker__title">{{ props.label }}：</span>
@@ -11,37 +39,9 @@
       :date-format="dateFormat"
       v-bind="$attrs"
       clearable
-    >
-    </el-date-picker>
+    />
   </div>
 </template>
-<script lang="ts" setup>
-const props = withDefaults(
-  defineProps<{
-    label: string;
-    modelValue: any;
-    defaultDate?: string[];
-    format?: string;
-    valueFormat?: string;
-    dateFormat?: string;
-    timeFormat?: string;
-  }>(),
-  {
-    label: "",
-    format: "YYYY-MM-DD",
-    valueFormat: "YYYY-MM-DD",
-    dateFormat: "YYYY-MM-DD",
-    timeFormat: "hh:mm",
-    defaultDate: () => [],
-  },
-);
-
-const activeDate = defineModel<string[]>({ required: true });
-
-onMounted(() => {
-  activeDate.value = props.defaultDate;
-});
-</script>
 
 <style lang="scss" scoped>
 .label-picker {

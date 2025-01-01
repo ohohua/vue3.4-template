@@ -1,8 +1,8 @@
-import { defineComponent } from "vue";
-import { Warning } from "@element-plus/icons-vue";
+import { Warning } from '@element-plus/icons-vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "deleteIcon",
+  name: 'deleteIcon',
   setup() {
     return () => (
       <div class="text-center py-2 text-sm h-full">
@@ -10,6 +10,6 @@ export default defineComponent({
           <Warning />
         </el-icon>
       </div>
-    );
+    )
   },
-});
+})

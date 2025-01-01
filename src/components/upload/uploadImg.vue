@@ -1,3 +1,76 @@
+<script lang="ts" setup>
+import { fileUpload } from '@/api/upload'
+import { isImageUrl, isVideoUrl } from '@/utils/is'
+import { Plus } from '@element-plus/icons-vue'
+import { ElMessage, type UploadProps } from 'element-plus'
+
+interface ModelValueItem {
+  id?: string
+  fileId?: string
+  url: string
+}
+const props = withDefaults(
+  defineProps<{
+    accept?: string
+    msg?: string
+    limit?: number
+  }>(),
+  {
+    accept: '.jpg,.jpeg,.png,.webp,.gif,swf,.avi,.flv,.mpg,.rm,.mov,.wav,.asf,.3gp,.mkv,.rmvb,.mp4,.mp3,.wav,.doc,.docx,.xlsx,.xls,.ppt,.pdf',
+    msg: '上传图片',
+    limit: 10,
+  },
+)
+
+function convertUrl(url: string) {
+  const URL: string = import.meta.env.VITE_SERVICE_BASE_URL
+  return URL + url
+}
+
+const innerValue = defineModel<ModelValueItem[]>({ required: true })
+
+const fileList = ref([])
+
+const handleChange: UploadProps['onChange'] = (uploadFile) => {
+  if (uploadFile.response) {
+    // @ts-ignore
+    innerValue.value.push(uploadFile.response)
+  }
+}
+function handleDelete(url: string) {
+  const index = innerValue.value.findIndex(it => it.url === url)
+  if (index >= 0) {
+    innerValue.value.splice(index, 1)
+  }
+}
+function handleBefore() {
+  if (innerValue.value.length >= props.limit) {
+    ElMessage.warning(`已超过上限，重新上传请删除之前的图片`)
+    return false
+  }
+  return true
+}
+async function customRequest(file: any) {
+  try {
+    const formData = new FormData()
+    formData.append('file', file.file)
+    const res = await fileUpload(formData)
+    return res.data
+  }
+  catch (error) {
+    return Promise.reject(error)
+  }
+}
+// 获取文件名
+function getFileName(url: string) {
+  const arr = url.split('/')
+  return arr[arr.length - 1]
+}
+function handleFile(url: string) {
+  window.open(convertUrl(url))
+}
+</script>
+
 <template>
   <div class="flex">
     <div>
@@ -15,13 +88,15 @@
         <el-icon><Plus /></el-icon>
         <span class="absolute bottom-0 text-10px">{{ msg }}</span>
       </el-upload>
-      <div class="text-[#42b3ff]">提示：最多上传10张图片</div>
+      <div class="text-[#42b3ff]">
+        提示：最多上传10张图片
+      </div>
     </div>
 
     <ElScrollbar class="scrollbarStyle">
       <div class="imgOut">
         <div v-for="{ url, id, fileId } in innerValue" :key="id || fileId" class="imgInner">
-          <i v-if="isImageUrl(url) || isVideoUrl(url)" @click="handleDelete(url)"></i>
+          <i v-if="isImageUrl(url) || isVideoUrl(url)" @click="handleDelete(url)" />
           <template v-if="isImageUrl(url)">
             <el-image style="width: 140px; height: 140px" fit="cover" :src="convertUrl(url)" :preview-src-list="[convertUrl(url)]" />
           </template>
@@ -49,83 +124,12 @@
           </svg>
 
           <span @click="handleFile(url)">{{ getFileName(url) }}</span>
-          <i class="file" @click="handleDelete(url)"></i>
+          <i class="file" @click="handleDelete(url)" />
         </div>
       </template>
     </div>
   </div>
 </template>
-<script lang="ts" setup>
-import { Plus } from "@element-plus/icons-vue";
-import { ElMessage, type UploadProps } from "element-plus";
-import { isImageUrl, isVideoUrl } from "@/utils/is";
-import { fileUpload } from "@/api/upload";
-
-interface ModelValueItem {
-  id?: string;
-  fileId?: string;
-  url: string;
-}
-const props = withDefaults(
-  defineProps<{
-    accept?: string;
-    msg?: string;
-    limit?: number;
-  }>(),
-  {
-    accept: ".jpg,.jpeg,.png,.webp,.gif,swf,.avi,.flv,.mpg,.rm,.mov,.wav,.asf,.3gp,.mkv,.rmvb,.mp4,.mp3,.wav,.doc,.docx,.xlsx,.xls,.ppt,.pdf",
-    msg: "上传图片",
-    limit: 10,
-  },
-);
-
-const convertUrl = (url: string) => {
-  const URL: string = import.meta.env.VITE_SERVICE_BASE_URL;
-  return URL + url;
-};
-
-const innerValue = defineModel<ModelValueItem[]>({ required: true });
-
-const fileList = ref([]);
-
-const handleChange: UploadProps["onChange"] = (uploadFile) => {
-  if (uploadFile.response) {
-    // @ts-ignore
-    innerValue.value.push(uploadFile.response);
-  }
-};
-const handleDelete = (url: string) => {
-  const index = innerValue.value.findIndex((it) => it.url === url);
-  if (index >= 0) {
-    innerValue.value.splice(index, 1);
-  }
-};
-const handleBefore = () => {
-  if (innerValue.value.length >= props.limit) {
-    ElMessage.warning(`已超过上限，重新上传请删除之前的图片`);
-    return false;
-  }
-  return true;
-};
-const customRequest = async (file: any) => {
-  try {
-    const formData = new FormData();
-    formData.append("file", file.file);
-    const res = await fileUpload(formData);
-    return res.data;
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
-// 获取文件名
-const getFileName = (url: string) => {
-  const arr = url.split("/");
-  return arr[arr.length - 1];
-};
-const handleFile = (url: string) => {
-  window.open(convertUrl(url));
-};
-</script>
 
 <style lang="scss" scoped>
 .upload-file {

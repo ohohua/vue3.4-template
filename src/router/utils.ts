@@ -1,24 +1,24 @@
-import type { Login } from "@/api/login/login";
-import type { AppRouteRecordRaw } from "@/types/router";
+import type { Login } from '@/api/login/login'
+import type { AppRouteRecordRaw } from '@/types/router'
 // import { routes as localRoutes } from "@/router/routes";
 
-const modules = import.meta.glob("../views/**/*.{vue,tsx}");
+const modules = import.meta.glob('../views/**/*.{vue,tsx}')
 
-const getParentLayout = () => {
+function getParentLayout() {
   return () =>
     new Promise((resolve) => {
       resolve({
-        name: "ParentLayout",
-      });
-    });
-};
+        name: 'ParentLayout',
+      })
+    })
+}
 
-const Layout = () => import("@/views/admin/admin.vue");
+const Layout = () => import('@/views/admin/admin.vue')
 
 /**
  * 处理后端路由，仅处理了2层
  */
-const convertMenu = (sysMenus: Login.Menu[]) => {
+function convertMenu(sysMenus: Login.Menu[]) {
   const newSysMenus = sysMenus.map((it, index) => ({
     id: it.id,
     path: it.url,
@@ -30,22 +30,22 @@ const convertMenu = (sysMenus: Login.Menu[]) => {
     meta: {
       title: it.menuName,
       icon: it.icon,
-      hidden: it.hidden ? true : false,
+      hidden: !!it.hidden,
     },
-  }));
-  const parentNodeList = newSysMenus.filter((it) => !it.parentId).sort((a, b) => a.sort - b.sort);
+  }))
+  const parentNodeList = newSysMenus.filter(it => !it.parentId).sort((a, b) => a.sort - b.sort)
 
   parentNodeList.forEach((it: any) => {
-    const children = newSysMenus.filter((menu) => it.id === menu.parentId);
-    it.children = children.sort((prev, next) => prev.sort - next.sort);
-  });
+    const children = newSysMenus.filter(menu => it.id === menu.parentId)
+    it.children = children.sort((prev, next) => prev.sort - next.sort)
+  })
 
-  return parentNodeList;
-};
+  return parentNodeList
+}
 
 // 后端控制路由生成
-const generateRoutes = (routes: any[]): AppRouteRecordRaw[] => {
-  const res: AppRouteRecordRaw[] = [];
+function generateRoutes(routes: any[]): AppRouteRecordRaw[] {
+  const res: AppRouteRecordRaw[] = []
 
   for (const route of routes) {
     const data: AppRouteRecordRaw = {
@@ -53,26 +53,27 @@ const generateRoutes = (routes: any[]): AppRouteRecordRaw[] => {
       name: route.name,
       redirect: route.redirect,
       meta: route.meta,
-    };
+    }
     if (route.component) {
-      const comModule = modules[`../${route.component}.vue`] || modules[`../${route.component}.tsx`];
-      const component = route.component as string;
-      if (!comModule && !component.includes("#")) {
-        console.error(`未找到${route.component}.vue文件或${route.component}.tsx文件，请创建`);
-      } else {
+      const comModule = modules[`../${route.component}.vue`] || modules[`../${route.component}.tsx`]
+      const component = route.component as string
+      if (!comModule && !component.includes('#')) {
+        console.error(`未找到${route.component}.vue文件或${route.component}.tsx文件，请创建`)
+      }
+      else {
         // 动态加载路由文件，可根据实际情况进行自定义逻辑
         // data.component = component === "#" ? Layout : component.includes("##") ? getParentLayout() : comModule;
-        data.component = component === "#" ? comModule : component.includes("##") ? getParentLayout() : comModule;
+        data.component = component === '#' ? comModule : component.includes('##') ? getParentLayout() : comModule
       }
     }
     // recursive child routes
     if (route.children) {
-      data.children = generateRoutes(route.children);
+      data.children = generateRoutes(route.children)
     }
-    res.push(data as AppRouteRecordRaw);
+    res.push(data as AppRouteRecordRaw)
   }
 
-  return res;
-};
+  return res
+}
 
-export { getParentLayout, generateRoutes, convertMenu, Layout };
+export { convertMenu, generateRoutes, getParentLayout, Layout }

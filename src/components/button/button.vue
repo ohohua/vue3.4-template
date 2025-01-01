@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { ElButton } from "element-plus";
 // import Icon from "../icon/icon.vue";
-import type { EpPropMergeType } from "element-plus/es/utils/index.mjs";
+import type { EpPropMergeType } from 'element-plus/es/utils/index.mjs'
+import { ElButton } from 'element-plus'
 
-type ButtonType = EpPropMergeType<StringConstructor, "" | "text" | "default" | "success" | "warning" | "info" | "primary" | "danger", unknown>;
+type ButtonType = EpPropMergeType<StringConstructor, '' | 'text' | 'default' | 'success' | 'warning' | 'info' | 'primary' | 'danger', unknown>
 
 withDefaults(
   defineProps<{
     // icon?: string;
-    disabled?: boolean;
-    iconUrl?: string;
-    plain?: boolean;
-    type?: ButtonType;
+    disabled?: boolean
+    iconUrl?: string
+    plain?: boolean
+    type?: ButtonType
   }>(),
   {
     // icon: "",
     disabled: false,
-    iconUrl: "",
+    iconUrl: '',
     plain: false,
-    type: "primary",
+    type: 'primary',
   },
-);
+)
 </script>
 
 <template>
-  <el-button v-bind="$attrs" :type="type" :disabled="disabled" :plain="plain">
+  <ElButton v-bind="$attrs" :type="type" :disabled="disabled" :plain="plain">
     <!-- <Icon v-if="icon" :name="icon"></Icon> -->
-    <el-image v-if="iconUrl" style="width: 100px; height: 100px" :src="iconUrl" fit="cover"></el-image>
+    <el-image v-if="iconUrl" style="width: 100px; height: 100px" :src="iconUrl" fit="cover" />
     <slot>图标按钮</slot>
-  </el-button>
+  </ElButton>
 </template>
 
 <style lang="scss" scoped>

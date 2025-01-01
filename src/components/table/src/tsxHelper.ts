@@ -1,19 +1,19 @@
-import type { Slots } from "vue";
-import { isFunction } from "../../../utils/is";
-import type { Recordable } from "@/types/form";
+import type { Recordable } from '@/types/form'
+import type { Slots } from 'vue'
+import { isFunction } from '../../../utils/is'
 
-export const getSlot = (slots: Slots, slot = "default", data?: Recordable) => {
+export function getSlot(slots: Slots, slot = 'default', data?: Recordable) {
   // Reflect.has 判断一个对象是否存在某个属性
   if (!slots || !Reflect.has(slots, slot)) {
-    return null;
+    return null
   }
   if (!isFunction(slots[slot])) {
-    console.error(`${slot} is not a function!`);
-    return null;
+    console.error(`${slot} is not a function!`)
+    return null
   }
-  const slotFn = slots[slot];
+  const slotFn = slots[slot]
   if (!slotFn) {
-    return null;
+    return null
   }
-  return slotFn(data);
-};
+  return slotFn(data)
+}

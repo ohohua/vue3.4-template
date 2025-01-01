@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Version } from "@/api/system/version/version";
+import type { Version } from '@/api/system/version/version'
 
-defineProps<Version.List>();
+defineProps<Version.List>()
 </script>
 
 <template>

@@ -1,23 +1,23 @@
-import { fileURLToPath, URL } from "node:url";
-import path from "path";
-import { defineConfig, loadEnv } from "vite";
-import vue from "@vitejs/plugin-vue";
-import vueJsx from "@vitejs/plugin-vue-jsx";
-import Icons from "unplugin-icons/vite";
-import IconsResolver from "unplugin-icons/resolver";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import path from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig, loadEnv } from 'vite'
 // import Inspect from 'vite-plugin-inspect'
 
-const pathSrc = path.resolve(__dirname, "src"); // commonjs
+const pathSrc = path.resolve(__dirname, 'src') // commonjs
 // https://vitejs.dev/config/
 
 export default defineConfig((configEnv) => {
-  const viteEnv = loadEnv(configEnv.mode, process.cwd());
-  const baseUrl = viteEnv.VITE_SERVICE_BASE_URL; //后端的地址
+  const viteEnv = loadEnv(configEnv.mode, process.cwd())
+  const baseUrl = viteEnv.VITE_SERVICE_BASE_URL // 后端的地址
   return {
-    envPrefix: ["VITE_"],
+    envPrefix: ['VITE_'],
     plugins: [
       vue(),
       vueJsx(),
@@ -25,7 +25,7 @@ export default defineConfig((configEnv) => {
       AutoImport({
         // Auto import functions from Vue, e.g. ref, reactive, toRef...
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-        imports: ["vue"],
+        imports: ['vue'],
 
         // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
         // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
@@ -35,11 +35,11 @@ export default defineConfig((configEnv) => {
           // Auto import icon components
           // 自动导入图标组件
           IconsResolver({
-            prefix: "Icon",
+            prefix: 'Icon',
           }),
         ],
 
-        dts: path.resolve(pathSrc, "auto-imports.d.ts"),
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
 
       Components({
@@ -47,14 +47,14 @@ export default defineConfig((configEnv) => {
           // Auto register icon components
           // 自动注册图标组件
           IconsResolver({
-            enabledCollections: ["ep"],
+            enabledCollections: ['ep'],
           }),
           // Auto register Element Plus components
           // 自动导入 Element Plus 组件
           ElementPlusResolver(),
         ],
 
-        dts: path.resolve(pathSrc, "components.d.ts"),
+        dts: path.resolve(pathSrc, 'components.d.ts'),
       }),
 
       Icons({
@@ -70,7 +70,7 @@ export default defineConfig((configEnv) => {
          * import.meta.url: file:///xxx/vue3.4-template/vite.config.ts
          * new URL("./src", import.meta.url): file:///xxx/vue3.4-template/src
          */
-        "@": fileURLToPath(new URL("./src", import.meta.url)), // 和 "@": pathSrc 等价
+        '@': fileURLToPath(new URL('./src', import.meta.url)), // 和 "@": pathSrc 等价
       },
     },
     server: {
@@ -79,7 +79,7 @@ export default defineConfig((configEnv) => {
          * 将/uploads开头的请求代理到baseUrl
          * ex: http://localhost:3000/uploads/xxx.png -> baseUrl/uploads/xxx.png
          */
-        "/uploads": {
+        '/uploads': {
           target: baseUrl,
         },
       },
@@ -87,9 +87,9 @@ export default defineConfig((configEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          api: "modern-compiler",
+          api: 'modern-compiler',
         },
       },
     },
-  };
-});
+  }
+})

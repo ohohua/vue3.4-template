@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { getMenuTreeByRole, editMenuToRole } from "@/api";
-import type { Role } from "@/api/system/role/role";
+import type { Role } from '@/api/system/role/role'
+import { editMenuToRole, getMenuTreeByRole } from '@/api'
 
-const props = defineProps<{ roleId: string }>();
-const emits = defineEmits(["close"]);
+const props = defineProps<{ roleId: string }>()
+const emits = defineEmits(['close'])
 
-const treeList = ref<Role.RoleMenuTree[]>([]);
-const menuIdList = ref<string[]>([]);
+const treeList = ref<Role.RoleMenuTree[]>([])
+const menuIdList = ref<string[]>([])
 
-const getTreeList = async () => {
-  const { data } = await getMenuTreeByRole(props.roleId);
-  treeList.value = data;
-};
-const handleConfirm = async () => {
-  const res = await editMenuToRole({ roleId: props.roleId, menuIdList: menuIdList.value });
-  console.log(res);
-  emits("close");
-};
-onMounted(() => getTreeList());
+async function getTreeList() {
+  const { data } = await getMenuTreeByRole(props.roleId)
+  treeList.value = data
+}
+async function handleConfirm() {
+  const res = await editMenuToRole({ roleId: props.roleId, menuIdList: menuIdList.value })
+  console.log(res)
+  emits('close')
+}
+onMounted(() => getTreeList())
 </script>
 
 <template>
   <div>
-    <el-tree class="py-4" ref="authTree" :data="treeList" :props="{ children: 'children', label: 'menuName' }" node-key="menuId" show-checkbox />
-    <Footer cancel confirm @cancel="emits('close')" @confirm="handleConfirm"></Footer>
+    <el-tree ref="authTree" class="py-4" :data="treeList" :props="{ children: 'children', label: 'menuName' }" node-key="menuId" show-checkbox />
+    <Footer cancel confirm @cancel="emits('close')" @confirm="handleConfirm" />
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-import http from "@/utils/http";
+import http from '@/utils/http'
 // import type { Upload } from "./upload";
 
 /**
@@ -6,6 +6,6 @@ import http from "@/utils/http";
  * @param data
  * @returns
  */
-const fileUpload = async (formData: FormData) => http.upload<any>("/fileManager/upload", formData);
+const fileUpload = async (formData: FormData) => http.upload<any>('/fileManager/upload', formData)
 
-export { fileUpload };
+export { fileUpload }

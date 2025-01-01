@@ -1,54 +1,58 @@
 <!-- 折叠按钮 -->
 <script setup lang="ts">
-import { useAttrs } from "vue";
-import { ElButton, ElDropdown, ElDropdownItem } from "element-plus";
 // import { ArrowDown } from '@element-plus/icons'
-import Icon from "@/components/icon/icon.vue";
-
-const attrs = useAttrs();
+import Icon from '@/components/icon/icon.vue'
+import { ElButton, ElDropdown, ElDropdownItem } from 'element-plus'
+import { useAttrs } from 'vue'
 
 withDefaults(
   defineProps<{
-    options: string[];
-    icon?: string;
-    disabled: boolean;
-    isOnline?: boolean;
+    options: string[]
+    icon?: string
+    disabled: boolean
+    isOnline?: boolean
   }>(),
   {
     options: () => [],
-    icon: "",
+    icon: '',
     disabled: true,
     isOnline: true,
   },
-);
-const emit = defineEmits(["callback"]);
+)
+
+const emit = defineEmits(['callback'])
+
+const attrs = useAttrs()
 
 /**
  * 点击选项
  */
-const commandBtn = (val: string) => {
-  emit("callback", val);
-};
+function commandBtn(val: string) {
+  emit('callback', val)
+}
 </script>
 
 <template>
-  <el-dropdown placement="top" :disabled="disabled" trigger="click" @command="commandBtn">
+  <ElDropdown placement="top" :disabled="disabled" trigger="click" @command="commandBtn">
     <slot name="button">
-      <el-button type="primary" v-bind="attrs" :disabled="disabled">
+      <ElButton type="primary" v-bind="attrs" :disabled="disabled">
         <slot>更多菜单</slot>
-        <Icon v-if="icon" :name="icon"></Icon>
+        <Icon v-if="icon" :name="icon" />
         <!-- <el-icon v-if="!icon">
           <ArrowDown />
         </el-icon> -->
-      </el-button>
+      </ElButton>
     </slot>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item v-for="(o, i) in options" :key="o" :command="o" :disabled="[3, 4].includes(i) && !isOnline">{{ o }}</el-dropdown-item>
+        <ElDropdownItem v-for="(o, i) in options" :key="o" :command="o" :disabled="[3, 4].includes(i) && !isOnline">
+          {{ o }}
+        </ElDropdownItem>
       </el-dropdown-menu>
     </template>
-  </el-dropdown>
+  </ElDropdown>
 </template>
+
 <style lang="scss" scoped>
 .el-button {
   color: #fff;

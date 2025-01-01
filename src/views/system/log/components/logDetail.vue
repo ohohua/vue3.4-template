@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Log } from "@/api/system/log/log";
-import search from "../composables/search";
+import type { Log } from '@/api/system/log/log'
+import search from '../composables/search'
 
-defineProps<Log.EditOperateLogParams>();
+defineProps<Log.EditOperateLogParams>()
 
-const { searchOptions } = search(() => {});
+const { searchOptions } = search(() => {})
 </script>
 
 <template>

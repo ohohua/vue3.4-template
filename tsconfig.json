@@ -1,5 +1,9 @@
 {
-  "files": [],
+  // 确保 TSX 文件能够正确解析和编译
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"
@@ -8,9 +12,5 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  // 确保 TSX 文件能够正确解析和编译
-  "compilerOptions": {
-    "jsx": "preserve",
-    "jsxImportSource": "vue"
-  }
+  "files": []
 }

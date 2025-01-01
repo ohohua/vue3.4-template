@@ -3,6 +3,6 @@
  * @param url
  * @returns
  */
-export const getAssetsFile = (url: string) => {
-  return new URL(`../assets/images/${url}`, import.meta.url).href;
-};
+export function getAssetsFile(url: string) {
+  return new URL(`../assets/images/${url}`, import.meta.url).href
+}

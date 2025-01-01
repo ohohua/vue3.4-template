@@ -1,21 +1,21 @@
 <script setup lang="ts">
 interface Props {
-  firstOptions: any[];
-  secondOptions: any[];
+  firstOptions: any[]
+  secondOptions: any[]
 }
-defineProps<Props>();
+defineProps<Props>()
 
-const first = ref(undefined);
-const second = defineModel<string>();
+const first = ref(undefined)
+const second = defineModel<string>()
 </script>
 
 <template>
   <div class="double-select">
-    <el-select placeholder="任务模板" v-model="first" :clearable="true">
+    <el-select v-model="first" placeholder="任务模板" :clearable="true">
       <el-option v-for="item in firstOptions" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
 
-    <el-select placeholder="请选择" v-model="second" :clearable="true">
+    <el-select v-model="second" placeholder="请选择" :clearable="true">
       <el-option v-for="item in secondOptions" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
   </div>

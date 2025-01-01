@@ -1,58 +1,58 @@
-import type { form, FormExpose } from "@/components/form";
-import type { ElForm } from "element-plus";
-import type { FormProps } from "@/components/form/src/types";
-import type { ComponentRef, FormSchema, FormSetPropsType, Recordable } from "@/types/form";
+import type { form, FormExpose } from '@/components/form'
+import type { FormProps } from '@/components/form/src/types'
+import type { ComponentRef, FormSchema, FormSetPropsType, Recordable } from '@/types/form'
+import type { ElForm } from 'element-plus'
 
 export default function useForm(props?: FormProps) {
   // From实例
-  const formRef = ref<typeof form & FormExpose>();
+  const formRef = ref<typeof form & FormExpose>()
 
   // ElForm实例
-  const elFormRef = ref<ComponentRef<typeof ElForm>>();
+  const elFormRef = ref<ComponentRef<typeof ElForm>>()
 
   /**
    * @param ref Form实例
    * @param elRef ElForm实例
    */
   const register = (ref: typeof form & FormExpose, elRef: ComponentRef<typeof ElForm>) => {
-    formRef.value = ref;
-    elFormRef.value = elRef;
-  };
+    formRef.value = ref
+    elFormRef.value = elRef
+  }
 
   const getForm = async () => {
-    await nextTick();
-    const form = unref(formRef);
+    await nextTick()
+    const form = unref(formRef)
     if (!form) {
-      console.error("The form is not registered. Please use the register method to register");
+      console.error('The form is not registered. Please use the register method to register')
     }
-    return form;
-  };
+    return form
+  }
 
   // 一些内置的方法
   const methods: {
-    setProps: (props: Recordable) => void;
-    setValues: (data: Recordable) => void;
-    getFormData: <T = Recordable | undefined>() => Promise<T>;
-    setSchema: (schemaProps: FormSetPropsType[]) => void;
-    addSchema: (formSchema: FormSchema, index?: number) => void;
-    delSchema: (field: string) => void;
+    setProps: (props: Recordable) => void
+    setValues: (data: Recordable) => void
+    getFormData: <T = Recordable | undefined>() => Promise<T>
+    setSchema: (schemaProps: FormSetPropsType[]) => void
+    addSchema: (formSchema: FormSchema, index?: number) => void
+    delSchema: (field: string) => void
   } = {
     setProps: async (props: FormProps = {}) => {
-      const form = await getForm();
-      form?.setProps(props);
+      const form = await getForm()
+      form?.setProps(props)
     },
 
     setValues: async (data: Recordable) => {
-      const form = await getForm();
-      form?.setValues(data);
+      const form = await getForm()
+      form?.setValues(data)
     },
 
     /**
      * @param schemaProps 需要设置的schemaProps
      */
     setSchema: async (schemaProps: FormSetPropsType[]) => {
-      const form = await getForm();
-      form?.setSchema(schemaProps);
+      const form = await getForm()
+      form?.setSchema(schemaProps)
     },
 
     /**
@@ -60,35 +60,35 @@ export default function useForm(props?: FormProps) {
      * @param index 在哪里新增
      */
     addSchema: async (formSchema: FormSchema, index?: number) => {
-      const form = await getForm();
-      form?.addSchema(formSchema, index);
+      const form = await getForm()
+      form?.addSchema(formSchema, index)
     },
 
     /**
      * @param field 删除哪个数据
      */
     delSchema: async (field: string) => {
-      const form = await getForm();
-      form?.delSchema(field);
+      const form = await getForm()
+      form?.delSchema(field)
     },
 
     /**
      * @returns form data
      */
     getFormData: async <T = Recordable>(): Promise<T> => {
-      const form = await getForm();
-      return form?.formModel as T;
+      const form = await getForm()
+      return form?.formModel as T
     },
-  };
+  }
 
   onMounted(() => {
-    props && methods.setProps(props);
-  });
+    props && methods.setProps(props)
+  })
 
   return {
     register,
     formRef,
     elFormRef,
     methods,
-  };
+  }
 }

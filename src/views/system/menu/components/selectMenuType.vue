@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { menuTypeMap } from "../composables/table";
+import { menuTypeMap } from '../composables/table'
 
-const menuTypeList = computed(() => Object.values(menuTypeMap));
+const menuTypeList = computed(() => Object.values(menuTypeMap))
 
-const typeIndex = defineModel<number>();
-const handleChoose = (index: number) => {
-  typeIndex.value = index;
-};
+const typeIndex = defineModel<number>()
+function handleChoose(index: number) {
+  typeIndex.value = index
+}
 </script>
 
 <template>
   <div class="w-[240px] flex">
-    <div :class="['default', typeIndex === index && 'active']" v-for="(item, index) in menuTypeList" :key="index" @click="handleChoose(index)">{{ item }}</div>
+    <div v-for="(item, index) in menuTypeList" :key="index" class="default" :class="[typeIndex === index && 'active']" @click="handleChoose(index)">
+      {{ item }}
+    </div>
   </div>
 </template>
 
