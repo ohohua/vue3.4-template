@@ -6,12 +6,11 @@ import http from '@/utils/http'
  * @param data
  * @returns Promise
  */
-
-const editConfig = async (data: Config.EditParamsParams) => http.post<Record<unknown, unknown>>('/configManagement/update/configManagement', data)
+const editConfig = async (data: Config.EditParamsParams) => http.post<Record<string, unknown>>('/configManagement/update/configManagement', data)
 /**
  * 查询参数
  * @returns Config
  */
-const getConfig = async () => http.get<Record<string, any>>('/configManagement/get/configManagement')
+const getConfig = async () => http.get<Record<unknown, any>>('/configManagement/get/configManagement')
 
 export { editConfig, getConfig }
