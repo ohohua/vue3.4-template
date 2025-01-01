@@ -10,7 +10,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // import Inspect from 'vite-plugin-inspect'
 
-const pathSrc = path.resolve(__dirname, "src");
+const pathSrc = path.resolve(__dirname, "src"); // commonjs
 // https://vitejs.dev/config/
 
 export default defineConfig((configEnv) => {
@@ -65,11 +65,20 @@ export default defineConfig((configEnv) => {
     ],
     resolve: {
       alias: {
-        "@": fileURLToPath(new URL("./src", import.meta.url)),
+        /**
+         * fileURLToPath 去掉 file://
+         * import.meta.url: file:///xxx/vue3.4-template/vite.config.ts
+         * new URL("./src", import.meta.url): file:///xxx/vue3.4-template/src
+         */
+        "@": fileURLToPath(new URL("./src", import.meta.url)), // 和 "@": pathSrc 等价
       },
     },
     server: {
       proxy: {
+        /**
+         * 将/uploads开头的请求代理到baseUrl
+         * ex: http://localhost:3000/uploads/xxx.png -> baseUrl/uploads/xxx.png
+         */
         "/uploads": {
           target: baseUrl,
         },
