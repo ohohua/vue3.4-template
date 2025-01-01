@@ -11,7 +11,6 @@ const editConfig = async (data: Config.EditParamsParams) => http.post<Record<str
  * 查询参数
  * @returns
  */
-
 const getConfig = async () => http.get<Record<string, any>>('/configManagement/get/configManagement')
 
 export { editConfig, getConfig }
