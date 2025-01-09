@@ -48,7 +48,7 @@ async function handleRelevance(row: any) {
     >
       <template #operation="{ row }">
         <ElButton
-          v-has="'user-list/btn-view'"
+          v-auth:user-list-view
           link
           type="primary"
           size="small"

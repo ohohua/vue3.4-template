@@ -19,8 +19,8 @@ const { handleAdd, handleEdit, handleImport } = operate(() => methods.getList())
 
 async function handleDelete(row: any, multiple: boolean) {
   const selected = await methods.getSelections()
-  const msg = multiple ? `确认删除${selected.length}条用户信息吗？` : '确认要将此用户信息删除吗？'
-  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, msg)
+  const message = multiple ? `确认删除${selected.length}条用户信息吗？` : '确认要将此用户信息删除吗？'
+  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, message)
 }
 </script>
 
@@ -41,30 +41,35 @@ async function handleDelete(row: any, multiple: boolean) {
 
     <Container>
       <ElSpace class="mb-[20px]">
-        <Button v-has="'user-list/btn-add'" icon="Plus" @click="handleAdd">
+        <Button v-auth:user-list-add icon="Plus" @click="handleAdd">
           新增
         </Button>
-        <Button v-has="'user-list/btn-import'" icon="Download" @click="handleImport">
+        <Button v-auth:user-list-import icon="Download" @click="handleImport">
           导入
         </Button>
-        <!-- <Button v-has="'user-list/btn-export'" style="width: 115px" plain icon="exports" :disabled="!methods.getSelections.length" @click="handleExport">导出</Button> -->
-        <Button v-has="'user-list/btn-export'" type="danger" icon="Close" @click="handleDelete(null, true)">
+        <Button v-auth:user-list-export type="danger" icon="Close" @click="handleDelete(null, true)">
           批量删除
         </Button>
       </ElSpace>
 
-      <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" @register="register">
+      <Table
+        v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize"
+        @register="register"
+      >
         <template #operation="{ row }">
-          <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
+          <ElButton v-auth:user-list-view link type="success" size="small" @click="handleDetail(row)">
             查看
           </ElButton>
-          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
+          <ElButton v-auth:user-list-edit link type="primary" size="small" @click="handleEdit(row)">
             编辑
           </ElButton>
-          <ElButton v-has="'user-list/btn-update-password'" link type="primary" size="small" @click="handleUpdatePassword(row)">
+          <ElButton
+            v-auth:user-list-update-password link type="primary" size="small"
+            @click="handleUpdatePassword(row)"
+          >
             修改密码
           </ElButton>
-          <ElButton v-has="'user-list/btn-delete'" link type="danger" size="small" @click="handleDelete(row, false)">
+          <ElButton v-auth:user-list-delete link type="danger" size="small" @click="handleDelete(row, false)">
             删除
           </ElButton>
         </template>

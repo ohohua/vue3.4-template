@@ -155,38 +155,3 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
 }
 
 export default useDialog
-
-/**
-  使用
- const [ openDialog, closeDialog ] = useDialog("hello", {
-  dialogProps: {
-    title: "测试",
-  },
-  contentProps: {
-    componentProps: someValue,
-  },
-  dialogSlots: {
-    footer: () => [
-      h(
-        Button,
-        {
-          plain: true,
-          onClick: () => {
-            closeDialog();
-          },
-        },
-        "取消",
-      ),
-      h(
-        Button,
-        {
-          onClick: () => {
-            closeDialog();
-          },
-        },
-        "确定",
-      ),
-    ],
-  },
-});
- */

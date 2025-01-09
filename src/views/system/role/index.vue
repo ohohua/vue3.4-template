@@ -21,8 +21,8 @@ const { handleAdd, handleEdit } = operate(() => methods.getList())
 
 async function handleDelete(row: any, multiple: boolean) {
   const selected = await methods.getSelections()
-  const msg = multiple ? `确认删除${selected.length}条角色信息吗？` : '确认要将此角色信息删除吗？'
-  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, msg)
+  const message = multiple ? `确认删除${selected.length}条角色信息吗？` : '确认要将此角色信息删除吗？'
+  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, message)
 }
 </script>
 
@@ -37,26 +37,26 @@ async function handleDelete(row: any, multiple: boolean) {
     </Search>
     <Container>
       <ElSpace class="mb-[20px]">
-        <Button v-has="'user-list/btn-add'" icon="Plus" @click="handleAdd">
+        <Button v-auth="'user-list/btn-add'" icon="Plus" @click="handleAdd">
           新增
         </Button>
       </ElSpace>
 
       <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" @register="register">
         <template #operation="{ row }">
-          <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
+          <ElButton v-auth="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
             查看
           </ElButton>
-          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
+          <ElButton v-auth="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
             编辑
           </ElButton>
-          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleUser(row)">
+          <ElButton v-auth="'user-list/btn-edit'" link type="primary" size="small" @click="handleUser(row)">
             用户
           </ElButton>
-          <ElButton v-has="'user-list/btn-update-password'" link type="primary" size="small" @click="handleImpower(row)">
+          <ElButton v-auth="'user-list/btn-update-password'" link type="primary" size="small" @click="handleImpower(row)">
             授权
           </ElButton>
-          <ElButton v-has="'user-list/btn-delete'" link type="danger" size="small" @click="handleDelete(row, false)">
+          <ElButton v-auth="'user-list/btn-delete'" link type="danger" size="small" @click="handleDelete(row, false)">
             删除
           </ElButton>
         </template>

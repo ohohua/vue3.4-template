@@ -1,7 +1,7 @@
 import type { App } from 'vue'
-import vHas from './vHas'
+import vAuth from './vAuth'
 
 export default function (app: App<Element>) {
   // 按钮权限校验指令
-  app.directive('has', vHas)
+  app.directive('auth', vAuth)
 }

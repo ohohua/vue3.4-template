@@ -59,7 +59,7 @@ async function handleCancel(row: any) {
     >
       <template #operation="{ row }">
         <ElButton
-          v-has="'user-list/btn-edit'"
+          v-auth:user-list-edit
           link
           type="primary"
           size="small"

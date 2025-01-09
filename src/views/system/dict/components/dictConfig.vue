@@ -65,10 +65,10 @@ function handleAdd(row: Dict.EditDictItemParams) {
 }
 async function handleDelete(row: any, multiple: boolean) {
   const selected = await methods.getSelections()
-  const msg = multiple
+  const message = multiple
     ? `确认删除${selected.length}条字典配置信息吗？`
     : '确认要将此字典配置信息删除吗？'
-  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, msg)
+  methods.delList(row ? [row.id] : selected.map(it => it.id), multiple, message)
 }
 </script>
 
@@ -95,7 +95,7 @@ async function handleDelete(row: any, multiple: boolean) {
     >
       <template #operation="{ row }">
         <ElButton
-          v-has="'user-list/btn-edit'"
+          v-auth:user-list-edit
           link
           type="primary"
           size="small"
@@ -104,7 +104,7 @@ async function handleDelete(row: any, multiple: boolean) {
           编辑
         </ElButton>
         <ElButton
-          v-has="'user-list/btn-delete'"
+          v-auth:user-list-delete
           link
           type="primary"
           size="small"

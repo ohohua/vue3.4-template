@@ -1,6 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router'
-
-export const baseRouter: RouteRecordRaw[] = [
+export const baseRouter: any[] = [
   {
     path: '/system',
     name: 'system',
@@ -24,18 +22,6 @@ export const baseRouter: RouteRecordRaw[] = [
         name: 'log',
         component: () => import('@/views/system/log/index.vue'),
         meta: { title: '系统日志管理', icon: '' },
-      },
-      {
-        path: '/system/config',
-        name: 'config',
-        component: () => import('@/views/system/config/index.vue'),
-        meta: { title: '配置管理', icon: '' },
-      },
-      {
-        path: '/system/version',
-        name: 'version',
-        component: () => import('@/views/system/version/index.vue'),
-        meta: { title: '版本管理', icon: '' },
       },
       {
         path: '/system/menu',

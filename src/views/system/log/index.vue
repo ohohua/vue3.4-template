@@ -42,17 +42,17 @@ const [handleDetail] = useDialog(logDetail, { dialogProps: { title: '日志详�
 
     <Container>
       <ElSpace class="mb-[20px]">
-        <Button v-has="'user-list/btn-export'" icon="Upload" @click="handleExport">
+        <Button v-auth:user-list-export icon="Upload" @click="handleExport">
           导出
         </Button>
       </ElSpace>
 
       <Table v-model:current-page="tableObject.currentPage" v-model:page-size="tableObject.pageSize" @register="register">
         <template #operation="{ row }">
-          <ElButton v-has="'user-list/btn-view'" link type="success" size="small" @click="handleDetail(row)">
+          <ElButton v-auth:user-list-view link type="success" size="small" @click="handleDetail(row)">
             查看
           </ElButton>
-          <ElButton v-has="'user-list/btn-edit'" link type="primary" size="small" @click="handleEdit(row)">
+          <ElButton v-auth:user-list-edit link type="primary" size="small" @click="handleEdit(row)">
             编辑
           </ElButton>
         </template>
