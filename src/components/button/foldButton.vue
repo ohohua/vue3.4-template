@@ -1,9 +1,7 @@
 <!-- 折叠按钮 -->
 <script setup lang="ts">
-// import { ArrowDown } from '@element-plus/icons'
 import Icon from '@/components/icon/icon.vue'
 import { ElButton, ElDropdown, ElDropdownItem } from 'element-plus'
-import { useAttrs } from 'vue'
 
 withDefaults(
   defineProps<{
@@ -21,9 +19,6 @@ withDefaults(
 )
 
 const emit = defineEmits(['callback'])
-
-const attrs = useAttrs()
-
 /**
  * 点击选项
  */
@@ -38,9 +33,6 @@ function commandBtn(val: string) {
       <ElButton type="primary" v-bind="attrs" :disabled="disabled">
         <slot>更多菜单</slot>
         <Icon v-if="icon" :name="icon" />
-        <!-- <el-icon v-if="!icon">
-          <ArrowDown />
-        </el-icon> -->
       </ElButton>
     </slot>
     <template #dropdown>
@@ -69,12 +61,22 @@ function commandBtn(val: string) {
   height: 14px;
   margin: 0 5px;
 }
+
+.el-button.is-disabled,
+.el-button.is-disabled:focus,
+.el-button.is-disabled:hover,
+.is-plain.is-disabled,
+.is-plain.is-disabled:focus,
+.is-plain.is-disabled:hover {
+  opacity: 0.7;
+}
+
 .el-button.is-disabled,
 .el-button.is-disabled:focus,
 .el-button.is-disabled:hover {
   background-color: #1c8de5;
-  opacity: 0.7;
 }
+
 .el-button.is-plain {
   color: #4b9aff;
   border: #4b9aff 1.5px solid;
@@ -86,7 +88,6 @@ function commandBtn(val: string) {
 .is-plain.is-disabled,
 .is-plain.is-disabled:focus,
 .is-plain.is-disabled:hover {
-  opacity: 0.7;
   border: #c0c6dc solid 1.5px;
   color: #c0c6dc;
   filter: grayscale(100%);
