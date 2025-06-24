@@ -52,20 +52,19 @@ export const errorRoute = [
 /**
  * 业务路由
  */
-export const defaultRoute
-  // 后台业务
-  = {
-    path: '/admin',
-    name: 'admin',
-    redirect: '/home', // 重定向至后台首页
-    component: () => import('@/views/admin/admin.vue'),
-    children: [
-      {
-        path: '/home',
-        name: 'adminHome',
-        component: () => import('@/views/admin/home/home.vue'),
-        meta: { title: '首页', icon: 'House' },
-      },
-      ...baseRouter,
-    ],
-  }
+// 后台业务
+export const defaultRoute = {
+  path: '/admin',
+  name: 'admin',
+  redirect: '/home', // 重定向至后台首页
+  component: () => import('@/views/admin/admin.vue'),
+  children: [
+    {
+      path: '/home',
+      name: 'adminHome',
+      component: () => import('@/views/admin/home/home.vue'),
+      meta: { title: '首页', icon: 'House' },
+    },
+    ...baseRouter,
+  ],
+}

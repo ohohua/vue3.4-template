@@ -1,6 +1,7 @@
 import type { JSX } from 'vue/jsx-runtime'
 import { CloseBold } from '@element-plus/icons-vue'
-import { ElDialog } from 'element-plus'
+import { ElConfigProvider, ElDialog } from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { upperFirst } from 'lodash-es'
 import { type ComponentInternalInstance, h, render } from 'vue'
 
@@ -127,14 +128,16 @@ function useDialog<P = any>(content: Content, options: Options<P> = {}) {
         default: () => [
           typeof content === 'string'
             ? content
-            : h(content as any, {
-                ...contentProps,
-                ...data,
-                [closeEventName]: closeDialog, // 监听自定义关闭事件，并执行关闭
-                beforeCloseDialog: (fn: () => boolean | void) => {
-                  onBeforeClose = fn
-                },
-              }),
+            : h(ElConfigProvider, { locale: zhCn }, [
+                h(content as any, {
+                  ...contentProps,
+                  ...data,
+                  [closeEventName]: closeDialog, // 监听自定义关闭事件，并执行关闭
+                  beforeCloseDialog: (fn: () => boolean | void) => {
+                    onBeforeClose = fn
+                  },
+                }),
+              ]),
         ],
 
         ...options.dialogSlots,
