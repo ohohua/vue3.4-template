@@ -11,7 +11,7 @@ async function generate() {
     const params = {
       fileName: 'api.ts',
       output: fileURLToPath(new URL('./src/api', import.meta.url)),
-      url: 'http://localhost:8888/api-json',
+      url: import.meta.env.VITE_SERVICE_BASE_URL,
       httpClientType: 'axios', // 生成的接口类型
       templates: fileURLToPath(new URL('./src/templates', import.meta.url)), // 指定自定义模板目录
       modular: true,
