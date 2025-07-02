@@ -13,7 +13,7 @@ function getParentLayout() {
     })
 }
 
-const Layout = () => import('@/views/admin/admin.vue')
+const Layout = () => import('@/layout/admin.vue')
 
 /**
  * 处理后端路由，仅处理了2层

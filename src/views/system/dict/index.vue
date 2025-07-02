@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { deleteDict as delListApi, getDictList as getListApi } from '@/api'
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/Button.vue'
 import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 import operate from './composables/operate'
 import search from './composables/search'
 import { tableProps } from './composables/table'
 
-const DictConfig = defineAsyncComponent(() => import('./components/dictConfig.vue'))
-const DictDetail = defineAsyncComponent(() => import('./components/dictDetail.vue'))
+const DictConfig = defineAsyncComponent(() => import('./components/DictConfig.vue'))
+const DictDetail = defineAsyncComponent(() => import('./components/DictDetail.vue'))
 
 const { register, tableObject, methods } = useTable({ getListApi, delListApi, props: tableProps })
 

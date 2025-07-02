@@ -1,6 +1,6 @@
 import useDialog from '@/hooks/useDialog'
 
-const menuForm = defineAsyncComponent(() => import('../components/menuForm.vue'))
+const menuForm = defineAsyncComponent(() => import('../components/MenuForm.vue'))
 
 export default function operate(fn: () => void) {
   const [handleAdd] = useDialog(menuForm, {

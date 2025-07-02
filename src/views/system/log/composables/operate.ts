@@ -1,9 +1,9 @@
 import useDialog from '@/hooks/useDialog'
 
-const logForm = defineAsyncComponent(() => import('../components/logForm.vue'))
+const LogForm = defineAsyncComponent(() => import('../components/LogForm.vue'))
 
 export default function operate(fn: () => void) {
-  const [handleEdit] = useDialog(logForm, {
+  const [handleEdit] = useDialog(LogForm, {
     dialogProps: { title: '编辑日志' },
     contentProps: { beforeClose: () => fn() },
   })

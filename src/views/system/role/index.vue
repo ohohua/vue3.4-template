@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { deleteRole as delListApi, getRoleList as getListApi } from '@/api'
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/Button.vue'
 import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 import operate from './composables/operate'
 import search from './composables/search'
 import { tableProps } from './composables/table'
 
-const roleDetail = defineAsyncComponent(() => import('./components/roleDetail.vue'))
-const roleUserTable = defineAsyncComponent(() => import('./components/roleUserTable.vue'))
-const roleAuthorized = defineAsyncComponent(() => import('./components/roleAuthorized.vue'))
+const roleDetail = defineAsyncComponent(() => import('./components/RoleDetail.vue'))
+const roleUserTable = defineAsyncComponent(() => import('./components/RoleUserTable.vue'))
+const roleAuthorized = defineAsyncComponent(() => import('./components/RoleAuthorized.vue'))
 
 const [handleDetail] = useDialog(roleDetail, { dialogProps: { title: '详情' } })
 const [handleImpower] = useDialog(roleAuthorized, { dialogProps: { title: '授权角色' } })

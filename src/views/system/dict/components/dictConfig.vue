@@ -8,7 +8,7 @@ import { Plus, Search } from '@element-plus/icons-vue'
 
 const props = defineProps<{ id: string, dictTypeCode: string }>()
 
-const dictConfigForm = defineAsyncComponent(() => import('./dictConfigForm.vue'))
+const DictConfigForm = defineAsyncComponent(() => import('./DictConfigForm.vue'))
 
 const columns = [
   { label: '排序', field: 'sort' },
@@ -49,12 +49,12 @@ const searchOptions = ref([
 function handleSearch(type: 'query' | 'reset') {
   methods.setSearchParams(type === 'query' ? searchForm.value : {})
 }
-const [openDialog] = useDialog(dictConfigForm, {
+const [openDialog] = useDialog(DictConfigForm, {
   dialogProps: { title: '新增字典值' },
   contentProps: { sysDictTypeId: props.id, beforeClose: () => methods.getList() },
 })
 
-const [openEditDialog] = useDialog(dictConfigForm, {
+const [openEditDialog] = useDialog(DictConfigForm, {
   dialogProps: { title: '编辑字典值' },
   contentProps: { sysDictTypeId: props.id },
 })

@@ -17,7 +17,13 @@ const innerValue = defineModel<number>()
 <template>
   <div class="label-select">
     <span class="label-select__title">{{ props.label }}：</span>
-    <el-select v-model="innerValue" v-bind="$attrs" :placeholder="placeholder ? placeholder : `请选择${props.label}`" class="flex-1" clearable>
+    <el-select
+      v-model="innerValue"
+      v-bind="$attrs"
+      :placeholder="placeholder ? placeholder : `请选择${props.label}`"
+      class="flex-1"
+      clearable
+    >
       <el-option v-for="(item, index) in props.option" :key="index" :label="item.dictLabel" :value="item.id" />
     </el-select>
   </div>
@@ -32,6 +38,7 @@ const innerValue = defineModel<number>()
   border-radius: 4px;
   margin: 5px 15px 5px 0;
   height: 40px;
+
   .label-select__title {
     color: #010101;
   }
@@ -40,6 +47,7 @@ const innerValue = defineModel<number>()
     display: flex;
     align-items: center;
   }
+
   ::v-deep(.el-select__wrapper) {
     width: 220px;
     height: 36px;

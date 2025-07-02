@@ -1,13 +1,13 @@
 import useDialog from '@/hooks/useDialog'
 
-const roleForm = defineAsyncComponent(() => import('../components/roleForm.vue'))
+const RoleForm = defineAsyncComponent(() => import('../components/RoleForm.vue'))
 
 export default function operate(fn: () => void) {
-  const [handleAdd] = useDialog(roleForm, {
+  const [handleAdd] = useDialog(RoleForm, {
     dialogProps: { title: '新增角色' },
     contentProps: { beforeClose: () => fn() },
   })
-  const [handleEdit] = useDialog(roleForm, {
+  const [handleEdit] = useDialog(RoleForm, {
     dialogProps: { title: '编辑角色' },
     contentProps: { beforeClose: () => fn() },
   })

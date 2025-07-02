@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { userDelete as delListApi, getUserList as getListApi } from '@/api'
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/Button.vue'
 import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 import operate from './composables/operate'
 import search from './composables/search'
 import { tableProps as props } from './composables/table'
 
-const passwordForm = defineAsyncComponent(() => import('./components/passwordForm.vue'))
-const userDetail = defineAsyncComponent(() => import('./components/userDetail.vue'))
+const passwordForm = defineAsyncComponent(() => import('./components/PasswordForm.vue'))
+const userDetail = defineAsyncComponent(() => import('./components/UserDetail.vue'))
 
 const [handleDetail] = useDialog(userDetail, { dialogProps: { title: '用户详情' } })
 const [handleUpdatePassword] = useDialog(passwordForm, { dialogProps: { title: '修改密码' } })

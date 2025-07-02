@@ -1,11 +1,11 @@
-import type { ComponentName } from '@/types/components'
 import type { Recordable } from '@/types/form'
+import type { ComponentName } from '@/types/form-components'
 import type { Component } from 'vue'
-import DoubleSelect from '@/components/select/double-select.vue'
-import Text from '@/components/text/text.vue'
-import UploadFile from '@/components/upload/uploadFile.vue'
+import DoubleSelect from '@/components/select/DoubleSelect.vue'
+import UploadFile from '@/components/upload/UploadFile.vue'
+import UploadImg from '@/components/upload/UploadImg.vue'
+// import Text from '@/components/text/text.vue'
 
-import UploadImg from '@/components/upload/uploadImg.vue'
 import {
   ElAutocomplete,
   ElCascader,
@@ -48,7 +48,7 @@ const componentMap: Recordable<Component, ComponentName> = {
   SelectV2: ElSelectV2,
   RadioButton: ElRadioGroup,
   TreeSelect: ElTreeSelect,
-  Text,
+  // Text,
   UploadFile,
   UploadImg,
   DoubleSelect,

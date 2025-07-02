@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import loginCom from './components/loginCom.vue'
+import LoginCom from './components/LoginCom.vue'
 </script>
 
 <template>
   <div class="h-screen login-wrapper">
-    <login-com />
+    <LoginCom />
   </div>
 </template>
 

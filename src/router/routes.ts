@@ -45,7 +45,7 @@ export const errorRoute = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import('@/views/admin/404.vue'),
+    component: () => import('@/views/404.vue'),
     meta: { title: '404' },
   },
 ]
@@ -57,12 +57,12 @@ export const defaultRoute = {
   path: '/admin',
   name: 'admin',
   redirect: '/home', // 重定向至后台首页
-  component: () => import('@/views/admin/admin.vue'),
+  component: () => import('@/layout/admin.vue'),
   children: [
     {
       path: '/home',
       name: 'adminHome',
-      component: () => import('@/views/admin/home/home.vue'),
+      component: () => import('@/views/home/Home.vue'),
       meta: { title: '首页', icon: 'House' },
     },
     ...baseRouter,

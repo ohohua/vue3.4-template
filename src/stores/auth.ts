@@ -92,6 +92,29 @@ export const useAuthStore = defineStore('auth', () => {
     sessionStorage.removeItem('tabs')
   }
 
+  function getMenuUrlsByType(data: any, type = 2) {
+    const urls = [] as any
+    function traverse(node: any) {
+      if (node.menuType === type) {
+        urls.push(node.url)
+      }
+      if (node.children && node.children.length > 0) {
+        node.children.forEach((child: any) => traverse(child))
+      }
+    }
+    // 遍历整个菜单结构
+    if (Array.isArray(data)) {
+      data.forEach(item => traverse(item))
+    }
+    else {
+      traverse(data)
+    }
+    return urls
+  }
+
+  function getPerms() {
+    return getMenuUrlsByType(scope.value)
+  }
   return {
     isAddRoute,
     token,
@@ -107,5 +130,6 @@ export const useAuthStore = defineStore('auth', () => {
     deleteToken,
     addAllRouter,
     addRouteFromStorage,
+    getPerms,
   }
 })

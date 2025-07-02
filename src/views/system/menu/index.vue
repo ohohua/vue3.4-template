@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { deleteMenu as delListApi, getMenuList as getListApi } from '@/api'
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/Button.vue'
 import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 import operate from './composables/operate'
 import search from './composables/search'
 import { tableProps as props } from './composables/table'
 
-const menuSubForm = defineAsyncComponent(() => import('./components/menuSubForm.vue'))
+const MenuSubForm = defineAsyncComponent(() => import('./components/MenuSubForm.vue'))
 
 const { register, tableObject, methods, elTableRef } = useTable({ getListApi, delListApi, props })
-const [handleAddSub] = useDialog(menuSubForm, {
+const [handleAddSub] = useDialog(MenuSubForm, {
   dialogProps: { title: '添加下级' },
   contentProps: { beforeClose: () => methods.getList() },
 })

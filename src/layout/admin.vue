@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import adminAside from '@/components/admin/adminAside.vue'
-import adminHeader from '@/components/admin/adminHeader.vue'
-import adminTabs from '@/components/admin/adminTabs.vue'
+import adminAside from '@/layout/components/adminAside.vue'
+import adminHeader from '@/layout/components/adminHeader.vue'
+import adminTabs from '@/layout/components/adminTabs.vue'
 import { useCollapseStore } from '@/stores/collapse'
 import 'element-plus/theme-chalk/el-backtop.css'
 

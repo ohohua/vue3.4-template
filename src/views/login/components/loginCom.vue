@@ -1,26 +1,20 @@
 <script lang="ts" setup>
-// import theme from "@/components/theme";
 import type { InfoLogin, PasswordLogin } from '@/types'
+import type { TabPaneName } from 'element-plus'
+// import { infoLogin, login } from '@/api'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import flexibleInput from './flexibleInput.vue'
-import flexibleSelect from './flexibleSelect.vue'
+import FlexibleInput from './FlexibleInput.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
-const type = ref('first')
+const type = ref<TabPaneName>(localStorage.getItem('type') || 'first')
 const loading = ref(false)
 
-const unitOptions = ref([
-  {
-    label: 'xx中队1',
-    value: 1,
-  },
-  {
-    label: 'xx中队2',
-    value: 2,
-  },
-])
+function handleTabChange(type: TabPaneName) {
+  localStorage.setItem('type', type as string)
+}
+
 /** 个人信息登录 */
 const loginUserInfoForm = reactive<InfoLogin>(
   Object.assign(
@@ -35,33 +29,16 @@ const loginUserInfoForm = reactive<InfoLogin>(
   ),
 )
 
-const canSubmitWithInfo = computed(() => {
-  const { unit, job, name, password } = loginUserInfoForm
-  return Boolean(unit && job && name && password)
-})
-
-/** 用户名登录 */
-const loginUsernameForm = reactive<PasswordLogin>(
-  Object.assign(
-    {
-      username: undefined,
-      password: undefined,
-      remember: false,
-    },
-    JSON.parse(localStorage.getItem('loginUsernameForm') as string),
-  ),
-)
 async function onSubmitWithInfo() {
   if (!canSubmitWithInfo.value && !loading.value)
     return
 
   try {
     loading.value = true
-    // const { data } = await login(loginUsernameForm);
-    // const { token, username, sysMenus } = data || {};
-    const token = '123'
-    authStore.setData({ token, menu: [] })
-    authStore.setCheckTokenData({ username: '123' })
+    // const { data } = await infoLogin(loginUserInfoForm)
+    // const { token, username, menuList } = data || {}
+    // authStore.setData({ token, menu: menuList })
+    // authStore.setCheckTokenData({ username })
     authStore.addAllRouter()
 
     if (loginUserInfoForm.remember) {
@@ -71,7 +48,52 @@ async function onSubmitWithInfo() {
     else {
       localStorage.removeItem('loginUserInfoForm')
     }
-    router.replace({ name: 'admin' })
+    await router.replace({ name: 'admin' })
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+const canSubmitWithInfo = computed(() => {
+  return true
+  // const { orgId, job, realname, password } = loginUserInfoForm
+  // return Boolean(orgId && job != null && realname && password)
+})
+
+/** 用户名登录 */
+const loginUsernameForm = reactive<PasswordLogin>(
+  Object.assign(
+    {
+      username: 'admin',
+      password: '123456',
+      remember: false,
+    },
+    JSON.parse(localStorage.getItem('loginUsernameForm') as string),
+  ),
+)
+
+async function onSubmitWithName() {
+  if (!canSubmitWithName.value && !loading.value)
+    return
+
+  try {
+    loading.value = true
+
+    // const { data } = await login(loginUsernameForm)
+    // const { menuList } = data || {}
+    // authStore.setData({ token: data.token, menu: menuList })
+    // authStore.setCheckTokenData({ username: data.username })
+    // authStore.addAllRouter()
+
+    if (loginUsernameForm.remember) {
+      delete loginUsernameForm.password
+      localStorage.setItem('loginUsernameForm', JSON.stringify(loginUsernameForm))
+    }
+    else {
+      localStorage.removeItem('loginUsernameForm')
+    }
+    await router.replace({ name: 'admin' })
   }
   finally {
     loading.value = false
@@ -82,64 +104,40 @@ const canSubmitWithName = computed(() => {
   const { username, password } = loginUsernameForm
   return Boolean(username && password)
 })
-
-async function onSubmitWithName() {
-  if (!canSubmitWithName.value && !loading.value)
-    return
-
-  try {
-    loading.value = true
-    // const { data } = await login(loginUsernameForm);
-    // const { token, sysMenus, username } = data || {};
-    const token = '123'
-    const username = 'admin'
-    authStore.setData({ token, menu: [] })
-    authStore.setCheckTokenData({ username })
-    authStore.addAllRouter()
-
-    if (loginUsernameForm.remember) {
-      delete loginUsernameForm.password
-      localStorage.setItem('loginUsernameForm', JSON.stringify(loginUsernameForm))
-    }
-    else {
-      localStorage.removeItem('loginUsernameForm')
-    }
-    router.replace({ name: 'admin' })
-  }
-  finally {
-    loading.value = false
-  }
-}
 </script>
 
 <template>
-  <div class="login-page">
-    <h2 class="mb-20 text-5xl font-bold text-center">
-      vue3.4-template
+  <div class="flex items-center justify-around h-full login-page">
+    <h2 class="mb-20 text-5xl font-bold text-left h-[544px] pt-[40px] leading-normal max-xl:hidden">
+      title
+      <br>
+      subtitle
     </h2>
-    <div class="flex overflow-hidden login-container">
-      <div class="p-4 form-container w-[400px] m-auto">
-        <el-tabs v-model="type" stretch>
-          <el-tab-pane label="个人信息登录" name="first">
-            <!-- 表单主体 -->
-            <el-form class="h-[330px]" @keydown.enter="onSubmitWithInfo">
-              <flexible-select v-model="loginUserInfoForm.unit" placeholder="单位" :options="unitOptions" />
-              <flexible-select v-model="loginUserInfoForm.job" placeholder="职务" :options="unitOptions" />
-              <flexible-input v-model="loginUserInfoForm.name" placeholder="姓名" :password="false" />
-              <flexible-input v-model="loginUserInfoForm.password" placeholder="密码" password />
-              <el-checkbox v-model="loginUserInfoForm.remember" label="记住个人信息" size="large" />
-              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithInfo" :loading="loading" @click="onSubmitWithInfo">
+    <div class="overflow-hidden login-container">
+      <div class="p-4 form-container">
+        <el-tabs v-model="type" stretch @tab-change="handleTabChange">
+          <el-tab-pane label="用户名登录" name="first">
+            <el-form class="h-[330px]" @keydown.enter="onSubmitWithName">
+              <FlexibleInput
+                v-model="loginUsernameForm.username" placeholder="用户名" :password="false"
+                class="mb-[20px]"
+              />
+              <FlexibleInput v-model="loginUsernameForm.password" placeholder="密码" password />
+              <el-checkbox v-model="loginUsernameForm.remember" label="记住用户名" size="large" />
+              <el-button
+                type="primary" size="large" class="w-full py-2 text-lg mt-[30px]"
+                :disabled="!canSubmitWithName" :loading="loading" @click="onSubmitWithName"
+              >
                 登录
               </el-button>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane label="用户名登录" name="second">
-            <!-- 表单主体 -->
-            <el-form class="h-[330px]" @keydown.enter="onSubmitWithName">
-              <flexible-input v-model="loginUsernameForm.username" placeholder="用户名" :password="false" />
-              <flexible-input v-model="loginUsernameForm.password" placeholder="密码" password />
-              <el-checkbox v-model="loginUsernameForm.remember" label="记住用户名" size="large" />
-              <el-button type="primary" size="large" class="w-full py-2 text-lg" :disabled="!canSubmitWithName" :loading="loading" @click="onSubmitWithName">
+          <el-tab-pane label="快捷登录 " name="second">
+            <el-form class="h-[330px]" @keydown.enter="onSubmitWithInfo">
+              <el-button
+                type="primary" size="large" class="w-full py-2 text-lg mt-[30px]"
+                :disabled="!canSubmitWithInfo" :loading="loading" @click="onSubmitWithInfo"
+              >
                 登录
               </el-button>
             </el-form>
@@ -152,24 +150,58 @@ async function onSubmitWithName() {
 
 <style lang="scss" scoped>
 .login-page {
-  width: 100%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  &>h2 {
+    text-shadow: 3px -3px 2px rgba(0, 0, 0, 0.3);
+  }
 
-  :deep(.el-tabs) {
-    .el-tabs__nav-wrap::after {
-      display: none;
+  .login-container {
+    background-color: rgba(#eef4ff, 0.9);
+    padding: 40px;
+    width: 440px;
+    border-radius: 15px;
+    background-size: cover;
+    background-image: url("@/assets/images/login_bg_container.png");
+
+    .form-container {
+      opacity: 1;
     }
   }
-  :deep(.el-checkbox) {
-    .el-checkbox__inner {
-      background-color: transparent;
+
+  :deep(.el-tabs) {
+    .el-tabs__active-bar {
+      background-color: #0061ff;
     }
+
+    .el-tabs__nav-wrap::after {
+      background-color: #fff;
+    }
+
+    .el-tabs__item {
+      font-size: 16px;
+      font-weight: bold;
+      color: #b8bbbe;
+    }
+
+    .is-active {
+      color: #0061ff;
+    }
+  }
+
+  :deep(.el-checkbox) {
     .el-checkbox__input.is-checked .el-checkbox__inner {
-      background-color: var(--el-checkbox-checked-bg-color);
-      border-color: var(--el-checkbox-checked-input-border-color);
+      background-color: #0061ff;
+    }
+
+    .el-checkbox__input.is-checked+.el-checkbox__label {
+      color: #0061ff;
+    }
+  }
+
+  .el-button {
+    background-color: #0061ff;
+
+    &:hover {
+      filter: brightness(1.2);
     }
   }
 }

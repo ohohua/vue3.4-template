@@ -5,7 +5,7 @@ import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 
 const props = defineProps<{ id: string, dictTypeCode: string }>()
-const userSelectTable = defineAsyncComponent(() => import('./userSelectTable.vue'))
+const userSelectTable = defineAsyncComponent(() => import('./UserSelectTable.vue'))
 const columns = [
   { label: '排序', field: 'sort' },
   { label: '用户账号', field: 'username' },

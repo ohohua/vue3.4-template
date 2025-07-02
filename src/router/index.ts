@@ -19,7 +19,7 @@ const router = createRouter({
         {
           path: '/login',
           name: 'loginPwd',
-          component: () => import('@/views/login/loginPwd.vue'),
+          component: () => import('@/views/login/LoginPwd.vue'),
           meta: { title: '密码登录' },
         },
       ],

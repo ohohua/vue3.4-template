@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { getLogList } from '@/api'
-import Button from '@/components/button/button.vue'
+import Button from '@/components/button/Button.vue'
 import useDialog from '@/hooks/useDialog'
 import useTable from '@/hooks/useTable'
 import operate from './composables/operate'
 import search from './composables/search'
 import { tableProps } from './composables/table'
 
-const logDetail = defineAsyncComponent(() => import('./components/logDetail.vue'))
+const logDetail = defineAsyncComponent(() => import('./components/LogDetail.vue'))
 
 const { register, tableObject, methods } = useTable({ getListApi: getLogList, props: tableProps })
 

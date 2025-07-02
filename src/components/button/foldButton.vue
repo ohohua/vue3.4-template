@@ -1,8 +1,5 @@
 <!-- 折叠按钮 -->
 <script setup lang="ts">
-import Icon from '@/components/icon/icon.vue'
-import { ElButton, ElDropdown, ElDropdownItem } from 'element-plus'
-
 withDefaults(
   defineProps<{
     options: string[]
@@ -30,17 +27,17 @@ function commandBtn(val: string) {
 <template>
   <ElDropdown placement="top" :disabled="disabled" trigger="click" @command="commandBtn">
     <slot name="button">
-      <ElButton type="primary" v-bind="attrs" :disabled="disabled">
+      <ElButton type="primary" v-bind="$attrs" :disabled="disabled">
         <slot>更多菜单</slot>
         <Icon v-if="icon" :name="icon" />
       </ElButton>
     </slot>
     <template #dropdown>
-      <el-dropdown-menu>
+      <ElDropdownMenu>
         <ElDropdownItem v-for="(o, i) in options" :key="o" :command="o" :disabled="[3, 4].includes(i) && !isOnline">
           {{ o }}
         </ElDropdownItem>
-      </el-dropdown-menu>
+      </ElDropdownMenu>
     </template>
   </ElDropdown>
 </template>
