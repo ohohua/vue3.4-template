@@ -7,8 +7,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'element-plus/theme-chalk/dark/css-vars.css'
-import '@/style/theme/css-vars.scss'
-import '@/style/index.scss'
+import '@/assets/style/theme/css-vars.scss'
+import '@/assets/style/index.scss'
 import 'dayjs/locale/zh-cn'
 
 const app = createApp(App)

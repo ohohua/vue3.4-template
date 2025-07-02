@@ -1,6 +1,4 @@
-@use "@/style/reset";
-/* iconfont图标样式 */
-@use "@/style/iconfont.css";
+@use "@/assets/style/reset";
 /* 进度条样式 */
 @use "./nprogress.scss";
 // 导入基础样式
@@ -12,4 +10,4 @@
 
 @use "element-plus/dist/index.css";
 
-@use "@/style/ele";
+@use "@/assets/style/element";
